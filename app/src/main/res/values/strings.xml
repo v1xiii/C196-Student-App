@@ -4,4 +4,8 @@
     <string name="button_terms">Terms</string>
     <string name="button_courses">Courses</string>
     <string name="button_assessments">Assessments</string>
+    <string name="title_activity_terms">Terms</string>
+    <string name="title_activity_courses">Courses</string>
+    <string name="title_activity_assessments">Assessments</string>
+    <string name="title_activity_term_details">TermDetails</string>
 </resources>
