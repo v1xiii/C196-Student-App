@@ -1,6 +1,5 @@
 package wgu.lschol1.c196;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -10,12 +9,12 @@ import androidx.appcompat.widget.Toolbar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
-public class Courses extends AppCompatActivity {
+public class CourseDetails extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_courses);
+        setContentView(R.layout.activity_course_details);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -27,10 +26,6 @@ public class Courses extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
-    }
-
-    public void openCourseDetailsPage(View view) {
-        startActivity(new Intent(Courses.this, CourseDetails.class));
     }
 
 }

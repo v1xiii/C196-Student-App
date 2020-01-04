@@ -10,9 +10,17 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".AssessmentDetails"
+            android:label="@string/title_activity_assessment_details"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".CourseDetails"
+            android:label="@string/title_activity_course_details"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
             android:name=".TermDetails"
             android:label="@string/title_activity_term_details"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Assessments"
             android:label="@string/title_activity_assessments"

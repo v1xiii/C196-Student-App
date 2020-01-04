@@ -1,5 +1,6 @@
 package wgu.lschol1.c196;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -26,6 +27,10 @@ public class Assessments extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+    }
+
+    public void openAssessmentDetailsPage(View view) {
+        startActivity(new Intent(Assessments.this, AssessmentDetails.class));
     }
 
 }
