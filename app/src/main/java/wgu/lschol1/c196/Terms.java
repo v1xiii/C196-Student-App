@@ -7,9 +7,6 @@ import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-
 public class Terms extends AppCompatActivity {
 
     @Override
@@ -18,7 +15,7 @@ public class Terms extends AppCompatActivity {
         setContentView(R.layout.activity_terms);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        /*
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -27,6 +24,7 @@ public class Terms extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+        */
     }
 
     public void openTermDetailsPage(View view) {
