@@ -6,26 +6,34 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 @Database(entities = {TermEntity.class}, version = 1, exportSchema = false)
 //@TypeConverters(DateConverter.class)
 
 public abstract class AppDatabase extends RoomDatabase {
-    public static final String DATABASE_NAME = "AppDatabase.db";
-    private static volatile AppDatabase instance;
-    private static final Object LOCK = new Object();
 
     public abstract TermDao termDao();
 
-    public static AppDatabase getInstance(Context context) {
-        if (instance == null) {
-            synchronized (LOCK) {
-                if (instance == null) {
-                    instance = Room.databaseBuilder(context.getApplicationContext(),
-                            AppDatabase.class, DATABASE_NAME).build();
+    private static volatile AppDatabase INSTANCE;
+    private static final int NUMBER_OF_THREADS = 4;
+    static final ExecutorService databaseWriteExecutor =
+            Executors.newFixedThreadPool(NUMBER_OF_THREADS);
+
+    private static final Object LOCK = new Object();
+    public static final String DATABASE_NAME = "AppDatabase.db";
+
+    public static AppDatabase getDatabase(final Context context) {
+        if (INSTANCE == null) {
+            synchronized (AppDatabase.class) {
+                if (INSTANCE == null) {
+                    INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
+                            AppDatabase.class, DATABASE_NAME)
+                            .build();
                 }
             }
         }
-
-        return instance;
+        return INSTANCE;
     }
 }
