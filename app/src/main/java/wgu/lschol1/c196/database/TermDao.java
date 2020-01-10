@@ -1,16 +1,7 @@
 package wgu.lschol1.c196.database;
 
-import androidx.lifecycle.LiveData;
-import androidx.room.Dao;
-import androidx.room.Delete;
-import androidx.room.Insert;
-import androidx.room.OnConflictStrategy;
-import androidx.room.Query;
-import androidx.room.Update;
-
-import java.util.List;
-
 // this thing is where you put your queries, and define functions that you can use to run them
+/*
 @Dao
 public interface TermDao {
 
@@ -27,5 +18,28 @@ public interface TermDao {
     TermEntity getTermById(int id);
 
     @Query("SELECT * FROM terms ORDER BY id ASC")
+    LiveData<List<TermEntity>> getAllTerms();
+}*/
+
+import androidx.lifecycle.LiveData;
+import androidx.room.Dao;
+import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
+import androidx.room.Query;
+
+import java.util.List;
+
+@Dao
+public interface TermDao {
+
+    // allowing the insert of the same word multiple times by passing a
+    // conflict resolution strategy
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    void insert(TermEntity term);
+
+    @Query("DELETE FROM terms")
+    void deleteAll();
+
+    @Query("SELECT * from terms ORDER BY id ASC")
     LiveData<List<TermEntity>> getAllTerms();
 }
