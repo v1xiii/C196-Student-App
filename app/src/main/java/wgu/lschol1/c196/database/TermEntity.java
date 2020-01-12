@@ -6,6 +6,7 @@ import androidx.room.PrimaryKey;
 // this thing is basically just a regular object that simultaneously defines a database table
 @Entity(tableName = "terms")
 public class TermEntity {
+
     @PrimaryKey(autoGenerate = true)
     private int id;
     private String start;
@@ -17,6 +18,10 @@ public class TermEntity {
         this.start = start;
         this.end = end;
         this.title = title;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getStart() {

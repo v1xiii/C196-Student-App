@@ -8,10 +8,6 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import wgu.lschol1.c196.adapters.TermsAdapter;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -21,11 +17,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        RecyclerView termsRecyclerView = findViewById(R.id.terms_recyclerview);
-        final TermsAdapter adapter = new TermsAdapter(this);
-        termsRecyclerView.setAdapter(adapter);
-        termsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 
     public void openTermsPage(View view) {

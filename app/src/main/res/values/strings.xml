@@ -10,4 +10,8 @@
     <string name="title_activity_term_details">TermDetails</string>
     <string name="title_activity_course_details">CourseDetails</string>
     <string name="title_activity_assessment_details">AssessmentDetails</string>
+
+    <string name="hint_word">Term…</string>
+    <string name="button_save">Save</string>
+    <string name="empty_not_saved">Term not saved because it is empty.</string>
 </resources>

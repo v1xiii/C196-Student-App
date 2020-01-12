@@ -1,7 +1,10 @@
 package wgu.lschol1.c196;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -10,7 +13,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -20,10 +22,13 @@ public class TermDetails extends AppCompatActivity {
 
     final Calendar startCalendar = Calendar.getInstance();
     final Calendar endCalendar = Calendar.getInstance();
+    EditText termNameText;
     EditText termStartText;
     EditText termEndText;
     DatePickerDialog.OnDateSetListener termStartPicker;
     DatePickerDialog.OnDateSetListener termEndPicker;
+
+    public static final String EXTRA_REPLY = "com.example.android.wordlistsql.REPLY";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,13 +37,36 @@ public class TermDetails extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        termNameText = findViewById(R.id.term_name);
+        termStartText = findViewById(R.id.term_start);
+        termEndText = findViewById(R.id.term_end);
+
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // replace the snackbar popup with saving term to database
+                /*
                 Snackbar.make(view, "This will save the data on this page and go back to the list.", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+                 */
+                Intent replyIntent = new Intent();
+                if (TextUtils.isEmpty(termNameText.getText())) {
+                    setResult(RESULT_CANCELED, replyIntent);
+                } else {
+                    String name = termNameText.getText().toString();
+                    String start = termStartText.getText().toString();
+                    String end = termEndText.getText().toString();
+
+                    Log.d("myTag", name);
+
+                    replyIntent.putExtra(EXTRA_REPLY, name);
+                    replyIntent.putExtra(EXTRA_REPLY, start);
+                    replyIntent.putExtra(EXTRA_REPLY, end);
+
+                    setResult(RESULT_OK, replyIntent);
+                }
+                finish();
             }
         });
 
@@ -63,8 +91,8 @@ public class TermDetails extends AppCompatActivity {
         };
 
         // set click listeners on date text
-        termStartText = findViewById(R.id.termStartDate);
-        termEndText = findViewById(R.id.termEndDate);
+        termStartText = findViewById(R.id.term_start);
+        termEndText = findViewById(R.id.term_end);
         termStartText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
