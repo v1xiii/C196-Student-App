@@ -46,7 +46,7 @@ public class TermsAdapter extends RecyclerView.Adapter<TermsAdapter.TermViewHold
         }
     }
 
-    void setTerms(List<TermEntity> terms){
+    public void setTerms(List<TermEntity> terms){
         mTerms = terms;
         notifyDataSetChanged();
     }

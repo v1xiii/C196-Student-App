@@ -28,7 +28,10 @@ public class TermDetails extends AppCompatActivity {
     DatePickerDialog.OnDateSetListener termStartPicker;
     DatePickerDialog.OnDateSetListener termEndPicker;
 
-    public static final String EXTRA_REPLY = "com.example.android.wordlistsql.REPLY";
+    public static final Integer TERM_ID = null;
+    public static final String TERM_NAME = "";
+    public static final String TERM_START = "";
+    public static final String TERM_END = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,13 +46,11 @@ public class TermDetails extends AppCompatActivity {
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View view) {
-                // replace the snackbar popup with saving term to database
-                /*
-                Snackbar.make(view, "This will save the data on this page and go back to the list.", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-                 */
+                /* TODO
+                *   Make a bundle instead of multiple intents for my values*/
                 Intent replyIntent = new Intent();
                 if (TextUtils.isEmpty(termNameText.getText())) {
                     setResult(RESULT_CANCELED, replyIntent);
@@ -58,11 +59,13 @@ public class TermDetails extends AppCompatActivity {
                     String start = termStartText.getText().toString();
                     String end = termEndText.getText().toString();
 
-                    Log.d("myTag", name);
+                    Log.d("name", name);
+                    Log.d("start", start);
+                    Log.d("end", end);
 
-                    replyIntent.putExtra(EXTRA_REPLY, name);
-                    replyIntent.putExtra(EXTRA_REPLY, start);
-                    replyIntent.putExtra(EXTRA_REPLY, end);
+                    replyIntent.putExtra(TERM_NAME, name);
+                    replyIntent.putExtra(TERM_START, start);
+                    replyIntent.putExtra(TERM_END, end);
 
                     setResult(RESULT_OK, replyIntent);
                 }
