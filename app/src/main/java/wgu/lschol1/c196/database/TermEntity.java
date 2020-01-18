@@ -9,19 +9,27 @@ public class TermEntity {
 
     @PrimaryKey(autoGenerate = true)
     private int id;
+    private String title;
     private String start;
     private String end;
-    private String title;
 
-    public TermEntity(int id, String start, String end, String title) {
+    public TermEntity(int id, String title, String start, String end) {
         this.id = id;
+        this.title = title;
         this.start = start;
         this.end = end;
-        this.title = title;
     }
 
     public int getId() {
         return id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getStart() {
@@ -38,13 +46,5 @@ public class TermEntity {
 
     public void setEnd(String end) {
         this.end = end;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
     }
 }

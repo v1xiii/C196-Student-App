@@ -48,25 +48,34 @@ public class Terms extends AppCompatActivity {
             }
         });
     }
+    /*
+    TODO
+     - make term details button or just clicking the term open a populated edit page
+     - make term list show start and end date as well
+     - make edit page able to update term
 
+     */
     public void openTermDetailsPage(View view) {
         startActivityForResult(new Intent(Terms.this, TermDetails.class), NEW_TERM_ACTIVITY_REQUEST_CODE);
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        Bundle extras = data.getExtras();
+
+        if (extras != null) {
+            for (String key : extras.keySet())
+            {
+                Log.d("Bundle Debug", key + " = \"" + extras.get(key) + "\"");
+            }
+        }
 
         if (requestCode == NEW_TERM_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
-            //Int termId = data.getIntExtra(TermDetails.TERM_ID);
-            String termName = data.getStringExtra(TermDetails.TERM_NAME);
-            String termStart = data.getStringExtra(TermDetails.TERM_START);
-            String termEnd = data.getStringExtra(TermDetails.TERM_END);
+            String termName = extras.getString(TermDetails.TERM_NAME);
+            String termStart = extras.getString(TermDetails.TERM_START);
+            String termEnd = extras.getString(TermDetails.TERM_END);
 
-            Log.d("termName", termName);
-            Log.d("termStart", termStart);
-            Log.d("termEnd", termEnd);
-
-            TermEntity term = new TermEntity(1, termName, termStart, termEnd);
+            TermEntity term = new TermEntity(0, termName, termStart, termEnd);
             mTermsViewModel.insert(term);
 
         } else {

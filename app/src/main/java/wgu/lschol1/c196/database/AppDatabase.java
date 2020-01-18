@@ -79,9 +79,9 @@ public abstract class AppDatabase extends RoomDatabase {
                 TermDao dao = INSTANCE.termDao();
                 dao.deleteAll();
 
-                TermEntity term = new TermEntity(0,"test","test","test");
+                TermEntity term = new TermEntity(0,"title1","start1","end1");
                 dao.insert(term);
-                term = new TermEntity(1,"test2","test2","test2");
+                term = new TermEntity(0,"title2","start2","end2");
                 dao.insert(term);
             });
         }

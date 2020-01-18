@@ -28,10 +28,10 @@ public class TermDetails extends AppCompatActivity {
     DatePickerDialog.OnDateSetListener termStartPicker;
     DatePickerDialog.OnDateSetListener termEndPicker;
 
-    public static final Integer TERM_ID = null;
-    public static final String TERM_NAME = "";
-    public static final String TERM_START = "";
-    public static final String TERM_END = "";
+    //public static final String TERM_ID = "TERM_ID";
+    public static final String TERM_NAME = "termName";
+    public static final String TERM_START = "termStart";
+    public static final String TERM_END = "termEnd";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,9 +49,8 @@ public class TermDetails extends AppCompatActivity {
 
             @Override
             public void onClick(View view) {
-                /* TODO
-                *   Make a bundle instead of multiple intents for my values*/
                 Intent replyIntent = new Intent();
+                Bundle extras = new Bundle();
                 if (TextUtils.isEmpty(termNameText.getText())) {
                     setResult(RESULT_CANCELED, replyIntent);
                 } else {
@@ -63,9 +62,11 @@ public class TermDetails extends AppCompatActivity {
                     Log.d("start", start);
                     Log.d("end", end);
 
-                    replyIntent.putExtra(TERM_NAME, name);
-                    replyIntent.putExtra(TERM_START, start);
-                    replyIntent.putExtra(TERM_END, end);
+                    extras.putString(TERM_NAME, name);
+                    extras.putString(TERM_START, start);
+                    extras.putString(TERM_END, end);
+
+                    replyIntent.putExtras(extras);
 
                     setResult(RESULT_OK, replyIntent);
                 }
