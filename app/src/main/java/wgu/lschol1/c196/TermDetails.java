@@ -28,7 +28,7 @@ public class TermDetails extends AppCompatActivity {
     DatePickerDialog.OnDateSetListener termStartPicker;
     DatePickerDialog.OnDateSetListener termEndPicker;
 
-    //public static final String TERM_ID = "TERM_ID";
+    public static final String TERM_ID = "termId";
     public static final String TERM_NAME = "termName";
     public static final String TERM_START = "termStart";
     public static final String TERM_END = "termEnd";

@@ -15,7 +15,7 @@
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
         android:onClick="openTermDetailsPage"
-        android:text="Term Details"
+        android:text="View / Edit Term"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"

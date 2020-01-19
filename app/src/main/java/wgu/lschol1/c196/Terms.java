@@ -48,13 +48,14 @@ public class Terms extends AppCompatActivity {
             }
         });
     }
+
     /*
     TODO
-     - make term details button or just clicking the term open a populated edit page
+     - make clicking the term open a populated edit page (termsadapter). Trying to make the recyclerview clicked item change color and use the edit button is probably more trouble than necessary
      - make term list show start and end date as well
      - make edit page able to update term
-
      */
+
     public void openTermDetailsPage(View view) {
         startActivityForResult(new Intent(Terms.this, TermDetails.class), NEW_TERM_ACTIVITY_REQUEST_CODE);
     }

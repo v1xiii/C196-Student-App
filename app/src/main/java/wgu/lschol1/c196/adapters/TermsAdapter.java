@@ -1,6 +1,7 @@
 package wgu.lschol1.c196.adapters;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +22,13 @@ public class TermsAdapter extends RecyclerView.Adapter<TermsAdapter.TermViewHold
         private TermViewHolder(View itemView) {
             super(itemView);
             termItemView = itemView.findViewById(R.id.textView);
+
+            termItemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Log.e("Test","Term clicked : "+getAdapterPosition());
+                }
+            });
         }
     }
 
