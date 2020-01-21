@@ -52,7 +52,6 @@ public class Terms extends AppCompatActivity {
     /*
     TODO
      - make clicking the term open a populated edit page (termsadapter). Trying to make the recyclerview clicked item change color and use the edit button is probably more trouble than necessary
-     - make term list show start and end date as well
      - make edit page able to update term
      */
 

@@ -45,8 +45,8 @@ public class TermDetails extends AppCompatActivity {
         termEndText = findViewById(R.id.term_end);
 
         FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
 
+        fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent replyIntent = new Intent();
@@ -97,6 +97,7 @@ public class TermDetails extends AppCompatActivity {
         // set click listeners on date text
         termStartText = findViewById(R.id.term_start);
         termEndText = findViewById(R.id.term_end);
+
         termStartText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
