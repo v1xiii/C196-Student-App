@@ -4,10 +4,10 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -32,6 +32,16 @@ public class TermDetails extends AppCompatActivity {
     public static final String TERM_NAME = "termName";
     public static final String TERM_START = "termStart";
     public static final String TERM_END = "termEnd";
+
+    private TextView termTitle;
+    private TextView termStart;
+    private TextView termEnd;
+
+    private String termName;
+    private String termStartString;
+    private String termEndString;
+
+    private int termId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,10 +68,7 @@ public class TermDetails extends AppCompatActivity {
                     String start = termStartText.getText().toString();
                     String end = termEndText.getText().toString();
 
-                    Log.d("name", name);
-                    Log.d("start", start);
-                    Log.d("end", end);
-
+                    extras.putInt(TERM_ID, termId);
                     extras.putString(TERM_NAME, name);
                     extras.putString(TERM_START, start);
                     extras.putString(TERM_END, end);
@@ -110,6 +117,8 @@ public class TermDetails extends AppCompatActivity {
                 new DatePickerDialog(TermDetails.this, termEndPicker, endCalendar.get(Calendar.YEAR), endCalendar.get(Calendar.MONTH), endCalendar.get(Calendar.DAY_OF_MONTH)).show();
             }
         });
+
+        setTermDetails();
     }
 
     private void updateText(String field) {
@@ -120,5 +129,20 @@ public class TermDetails extends AppCompatActivity {
         } else {
             termEndText.setText(sdf.format(endCalendar.getTime()));
         }
+    }
+
+    private void setTermDetails() {
+        termTitle = findViewById(R.id.term_name);
+        termStart = findViewById(R.id.term_start);
+        termEnd = findViewById(R.id.term_end);
+
+        Intent intent = getIntent();
+        termName = intent.getStringExtra("termName");
+        termStartString = intent.getStringExtra("termStart");
+        termEndString = intent.getStringExtra("termEnd");
+        termId = intent.getIntExtra("termId", 0);
+        termTitle.setText(termName);
+        termStart.setText(termStartString);
+        termEnd.setText(termEndString);
     }
 }

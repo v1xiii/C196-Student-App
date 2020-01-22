@@ -51,8 +51,11 @@ public class Terms extends AppCompatActivity {
 
     /*
     TODO
-     - make clicking the term open a populated edit page (termsadapter). Trying to make the recyclerview clicked item change color and use the edit button is probably more trouble than necessary
-     - make edit page able to update term
+     - delete term functionality
+     - get rid of edit/view term button
+     - add/edit course activity, term will be associated with course in course editor
+     - all courses list
+     - term courses list
      */
 
     public void openTermDetailsPage(View view) {
@@ -64,25 +67,22 @@ public class Terms extends AppCompatActivity {
         Bundle extras = data.getExtras();
 
         if (extras != null) {
-            for (String key : extras.keySet())
-            {
+            for (String key : extras.keySet()){
                 Log.d("Bundle Debug", key + " = \"" + extras.get(key) + "\"");
             }
         }
 
         if (requestCode == NEW_TERM_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
+            int termId = extras.getInt(TermDetails.TERM_ID,0);
             String termName = extras.getString(TermDetails.TERM_NAME);
             String termStart = extras.getString(TermDetails.TERM_START);
             String termEnd = extras.getString(TermDetails.TERM_END);
 
-            TermEntity term = new TermEntity(0, termName, termStart, termEnd);
+            TermEntity term = new TermEntity(termId, termName, termStart, termEnd);
             mTermsViewModel.insert(term);
 
         } else {
-            Toast.makeText(
-                    getApplicationContext(),
-                    R.string.empty_not_saved,
-                    Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(),R.string.empty_not_saved,Toast.LENGTH_LONG).show();
         }
     }
 }

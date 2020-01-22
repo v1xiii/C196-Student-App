@@ -34,7 +34,7 @@ public interface TermDao {
 
     // allowing the insert of the same word multiple times by passing a
     // conflict resolution strategy
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(TermEntity term);
 
     @Query("DELETE FROM terms")

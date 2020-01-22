@@ -1,5 +1,6 @@
 package wgu.lschol1.c196.adapters;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
@@ -16,15 +17,19 @@ import wgu.lschol1.c196.R;
 import wgu.lschol1.c196.TermDetails;
 import wgu.lschol1.c196.database.TermEntity;
 
+import static wgu.lschol1.c196.Terms.NEW_TERM_ACTIVITY_REQUEST_CODE;
+
 public class TermsAdapter extends RecyclerView.Adapter<TermsAdapter.TermViewHolder> {
 
     private final Context context;
     private final LayoutInflater mInflater;
     private List<TermEntity> mTerms; // Cached copy of terms
+    private Activity activity;
 
     public TermsAdapter(Context context) {
         mInflater = LayoutInflater.from(context);
         this.context = context;
+        this.activity = (Activity) context;
         //this.mTerms = mTerms;
     }
 
@@ -66,7 +71,9 @@ public class TermsAdapter extends RecyclerView.Adapter<TermsAdapter.TermViewHold
                     intent.putExtra("termName", term.getTitle());
                     intent.putExtra("termStart", term.getStart());
                     intent.putExtra("termEnd", term.getEnd());
-                    context.startActivity(intent);
+                    //context.startActivity(intent);
+
+                    activity.startActivityForResult(intent, NEW_TERM_ACTIVITY_REQUEST_CODE);
                 }
             });
         } else {
