@@ -29,4 +29,8 @@ public class TermsViewModel extends AndroidViewModel {
     public void insert(TermEntity term) {
         mRepository.insert(term);
     }
+
+    public void delete(TermEntity term){
+        mRepository.delete(term);
+    }
 }

@@ -16,7 +16,7 @@ public interface TermDao {
     void insert(TermEntity term);
 
     @Delete
-    void deleteTerm(TermEntity termEntity);
+    void delete(TermEntity termEntity);
 
     @Query("DELETE FROM terms")
     void deleteAll();

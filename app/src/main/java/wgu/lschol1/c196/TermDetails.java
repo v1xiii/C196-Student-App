@@ -143,4 +143,8 @@ public class TermDetails extends AppCompatActivity {
         termStart.setText(termStartString);
         termEnd.setText(termEndString);
     }
+
+    public void deleteTerm(View view) {
+        //TermsViewModel.delete();
+    }
 }

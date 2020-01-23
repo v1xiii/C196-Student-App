@@ -51,7 +51,6 @@ public class Terms extends AppCompatActivity {
     /*
     TODO
      - delete term functionality
-     - get rid of edit/view term button
      - add/edit course activity, term will be associated with course in course editor
      - all courses list
      - term courses list

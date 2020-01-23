@@ -26,4 +26,10 @@ public class TermRepository {
             mTermDao.insert(term);
         });
     }
+
+    public void delete(TermEntity term) {
+        AppDatabase.databaseWriteExecutor.execute(() -> {
+            mTermDao.delete(term);
+        });
+    }
 }
