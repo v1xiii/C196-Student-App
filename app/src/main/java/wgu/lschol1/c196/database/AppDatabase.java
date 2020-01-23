@@ -40,11 +40,7 @@ public abstract class AppDatabase extends RoomDatabase {
         public void onOpen(@NonNull SupportSQLiteDatabase db) {
             super.onOpen(db);
 
-            // If you want to keep data through app restarts,
-            // comment out the following block
-            databaseWriteExecutor.execute(() -> {
-                // Populate the database in the background.
-                // If you want to start with more words, just add them.
+            databaseWriteExecutor.execute(() -> { // clears table and inserts test data, comment out to save manually entered data
                 TermDao dao = INSTANCE.termDao();
                 dao.deleteAll();
 

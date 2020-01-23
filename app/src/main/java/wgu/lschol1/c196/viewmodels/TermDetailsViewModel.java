@@ -22,7 +22,11 @@ public class TermDetailsViewModel extends AndroidViewModel {
         mAllTerms = mRepository.getAllTerms();
     }
 
-    LiveData<List<TermEntity>> getAllTerms() { return mAllTerms; }
+    LiveData<List<TermEntity>> getAllTerms() {
+        return mAllTerms;
+    }
 
-    public void insert(TermEntity term) { mRepository.insert(term); }
+    public void insert(TermEntity term) {
+        mRepository.insert(term);
+    }
 }

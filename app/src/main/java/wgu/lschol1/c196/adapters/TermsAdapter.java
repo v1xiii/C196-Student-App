@@ -23,14 +23,13 @@ public class TermsAdapter extends RecyclerView.Adapter<TermsAdapter.TermViewHold
 
     private final Context context;
     private final LayoutInflater mInflater;
-    private List<TermEntity> mTerms; // Cached copy of terms
+    private List<TermEntity> mTerms;
     private Activity activity;
 
     public TermsAdapter(Context context) {
         mInflater = LayoutInflater.from(context);
         this.context = context;
         this.activity = (Activity) context;
-        //this.mTerms = mTerms;
     }
 
     class TermViewHolder extends RecyclerView.ViewHolder {
@@ -71,7 +70,6 @@ public class TermsAdapter extends RecyclerView.Adapter<TermsAdapter.TermViewHold
                     intent.putExtra("termName", term.getTitle());
                     intent.putExtra("termStart", term.getStart());
                     intent.putExtra("termEnd", term.getEnd());
-                    //context.startActivity(intent);
 
                     activity.startActivityForResult(intent, NEW_TERM_ACTIVITY_REQUEST_CODE);
                 }
@@ -87,8 +85,6 @@ public class TermsAdapter extends RecyclerView.Adapter<TermsAdapter.TermViewHold
         notifyDataSetChanged();
     }
 
-    // getItemCount() is called many times, and when it is first called,
-    // mTerms has not been updated (means initially, it's null, and we can't return null).
     @Override
     public int getItemCount() {
         if (mTerms != null)

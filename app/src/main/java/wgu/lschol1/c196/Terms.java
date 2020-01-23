@@ -43,7 +43,6 @@ public class Terms extends AppCompatActivity {
         mTermsViewModel.getAllTerms().observe(this, new Observer<List<TermEntity>>() {
             @Override
             public void onChanged(@Nullable final List<TermEntity> terms) {
-                // Update the cached copy of the terms in the adapter.
                 adapter.setTerms(terms);
             }
         });

@@ -81,7 +81,6 @@ public class TermDetails extends AppCompatActivity {
             }
         });
 
-        // set date submission listeners
         termStartPicker = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
@@ -101,7 +100,6 @@ public class TermDetails extends AppCompatActivity {
             }
         };
 
-        // set click listeners on date text
         termStartText = findViewById(R.id.term_start);
         termEndText = findViewById(R.id.term_end);
 
