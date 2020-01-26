@@ -11,12 +11,17 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
+import java.util.Objects;
+
+import wgu.lschol1.c196.database.TermEntity;
+import wgu.lschol1.c196.viewmodels.TermsViewModel;
 
 public class TermDetails extends AppCompatActivity {
 
@@ -33,15 +38,8 @@ public class TermDetails extends AppCompatActivity {
     public static final String TERM_START = "termStart";
     public static final String TERM_END = "termEnd";
 
-    private TextView termTitle;
-    private TextView termStart;
-    private TextView termEnd;
-
-    private String termName;
-    private String termStartString;
-    private String termEndString;
-
-    private int termId;
+    private TermEntity termEntity;
+    private int termId = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -130,21 +128,28 @@ public class TermDetails extends AppCompatActivity {
     }
 
     private void setTermDetails() {
-        termTitle = findViewById(R.id.term_name);
-        termStart = findViewById(R.id.term_start);
-        termEnd = findViewById(R.id.term_end);
-
         Intent intent = getIntent();
-        termName = intent.getStringExtra("termName");
-        termStartString = intent.getStringExtra("termStart");
-        termEndString = intent.getStringExtra("termEnd");
-        termId = intent.getIntExtra("termId", 0);
-        termTitle.setText(termName);
-        termStart.setText(termStartString);
-        termEnd.setText(termEndString);
+
+        if (intent.hasExtra("termEntity")){
+            TextView termTitle = findViewById(R.id.term_name);
+            TextView termStart = findViewById(R.id.term_start);
+            TextView termEnd = findViewById(R.id.term_end);
+
+            termEntity = (TermEntity) getIntent().getSerializableExtra("termEntity");
+            termId = Objects.requireNonNull(termEntity).getId();
+
+            termTitle.setText(termEntity.getTitle());
+            termStart.setText(termEntity.getStart());
+            termEnd.setText(termEntity.getEnd());
+        }
     }
 
     public void deleteTerm(View view) {
-        //TermsViewModel.delete();
+        TermsViewModel mTermsViewModel = new ViewModelProvider(this).get(TermsViewModel.class);
+        mTermsViewModel.delete(termEntity);
+
+        Intent replyIntent = new Intent();
+        setResult(RESULT_CANCELED, replyIntent);
+        finish();
     }
 }

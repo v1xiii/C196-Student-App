@@ -70,6 +70,7 @@ public class TermsAdapter extends RecyclerView.Adapter<TermsAdapter.TermViewHold
                     intent.putExtra("termName", term.getTitle());
                     intent.putExtra("termStart", term.getStart());
                     intent.putExtra("termEnd", term.getEnd());
+                    intent.putExtra("termEntity", term);
 
                     activity.startActivityForResult(intent, NEW_TERM_ACTIVITY_REQUEST_CODE);
                 }

@@ -2,7 +2,6 @@ package wgu.lschol1.c196;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -15,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
+import java.util.Objects;
 
 import wgu.lschol1.c196.adapters.TermsAdapter;
 import wgu.lschol1.c196.database.TermEntity;
@@ -50,7 +50,9 @@ public class Terms extends AppCompatActivity {
 
     /*
     TODO
-     - delete term functionality
+     - are there other result codes like RESULT_CANCELLED or RESULT_OK?
+     - make proper message for backing out of term editor with populated fields (current message is for empty fields)
+     - make proper message for term deleted when returning to term list
      - add/edit course activity, term will be associated with course in course editor
      - all courses list
      - term courses list
@@ -62,16 +64,19 @@ public class Terms extends AppCompatActivity {
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Bundle extras = data.getExtras();
+        Bundle extras = null;
 
-        if (extras != null) {
+        if (data != null) {
+            extras = data.getExtras();
+            /*
             for (String key : extras.keySet()){
                 Log.d("Bundle Debug", key + " = \"" + extras.get(key) + "\"");
             }
+            */
         }
 
         if (requestCode == NEW_TERM_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
-            int termId = extras.getInt(TermDetails.TERM_ID,0);
+            int termId = Objects.requireNonNull(extras).getInt(TermDetails.TERM_ID,0);
             String termName = extras.getString(TermDetails.TERM_NAME);
             String termStart = extras.getString(TermDetails.TERM_START);
             String termEnd = extras.getString(TermDetails.TERM_END);

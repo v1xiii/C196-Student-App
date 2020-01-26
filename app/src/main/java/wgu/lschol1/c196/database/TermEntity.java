@@ -3,9 +3,11 @@ package wgu.lschol1.c196.database;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.io.Serializable;
+
 // this thing is basically just a regular object that simultaneously defines a database table
 @Entity(tableName = "terms")
-public class TermEntity {
+public class TermEntity implements Serializable {
 
     @PrimaryKey(autoGenerate = true)
     private int id;
