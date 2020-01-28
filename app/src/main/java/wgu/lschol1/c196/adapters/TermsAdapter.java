@@ -39,9 +39,9 @@ public class TermsAdapter extends RecyclerView.Adapter<TermsAdapter.TermViewHold
 
         private TermViewHolder(View itemView) {
             super(itemView);
-            termTitle = itemView.findViewById(R.id.term_title);
-            termStart = itemView.findViewById(R.id.term_start);
-            termEnd = itemView.findViewById(R.id.term_end);
+            termTitle = itemView.findViewById(R.id.item_title);
+            termStart = itemView.findViewById(R.id.item_start);
+            termEnd = itemView.findViewById(R.id.item_end);
         }
     }
 

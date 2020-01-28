@@ -15,7 +15,7 @@
         android:background="@android:color/holo_orange_light">
 
         <TextView
-            android:id="@+id/term_title"
+            android:id="@+id/item_title"
             style="@style/term_title"
             android:layout_width="140dp"
             android:layout_height="wrap_content"
@@ -23,7 +23,7 @@
             android:layout_weight=".25"/>
 
         <TextView
-            android:id="@+id/term_start"
+            android:id="@+id/item_start"
             style="@style/term_title"
             android:layout_width="140dp"
             android:layout_height="wrap_content"
@@ -31,7 +31,7 @@
             android:layout_weight=".25"/>
 
         <TextView
-            android:id="@+id/term_end"
+            android:id="@+id/item_end"
             style="@style/term_title"
             android:layout_width="140dp"
             android:layout_height="wrap_content"
