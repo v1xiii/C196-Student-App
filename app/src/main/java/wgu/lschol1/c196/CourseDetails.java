@@ -5,23 +5,30 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 
 import wgu.lschol1.c196.database.CourseEntity;
+import wgu.lschol1.c196.database.TermEntity;
 import wgu.lschol1.c196.viewmodels.CoursesViewModel;
+import wgu.lschol1.c196.viewmodels.TermsViewModel;
 
 public class CourseDetails extends AppCompatActivity {
 
@@ -40,6 +47,10 @@ public class CourseDetails extends AppCompatActivity {
 
     private CourseEntity courseEntity;
     private int courseId = 0;
+
+    String[] statuses = { "In Progress", "Completed", "Dropped", "Plan to Take" };
+
+    private TermsViewModel termViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,6 +126,8 @@ public class CourseDetails extends AppCompatActivity {
         });
 
         setCourseDetails();
+        setStatusSpinner();
+        setTermSpinner();
     }
 
     private void updateText(String field) {
@@ -151,5 +164,31 @@ public class CourseDetails extends AppCompatActivity {
         Intent replyIntent = new Intent();
         setResult(RESULT_CANCELED, replyIntent);
         finish();
+    }
+
+    private void setStatusSpinner(){
+        Spinner spin = (Spinner) findViewById(R.id.course_status);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, statuses);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spin.setAdapter(adapter);
+    }
+
+    private void setTermSpinner(){
+        // get the term data and create an array of strings, add array to last parameter of new ArrayAdapter.
+        // type converter to change objects to strings???
+        // comment out the final block
+
+        Spinner spin = (Spinner) findViewById(R.id.term);
+        ArrayAdapter<TermEntity> adapter = new ArrayAdapter<TermEntity>(this, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spin.setAdapter(adapter);
+
+        termViewModel = new ViewModelProvider(this).get(TermsViewModel.class);
+        termViewModel.getAllTerms().observe(this, new Observer<List<TermEntity>>() {
+            @Override
+            public void onChanged(@Nullable final List<TermEntity> terms) {
+                adapter.addAll(Objects.requireNonNull(terms));
+            }
+        });
     }
 }

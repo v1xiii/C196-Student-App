@@ -16,6 +16,7 @@
         <activity
             android:name=".CourseDetails"
             android:label="@string/title_activity_course_details"
+            android:windowSoftInputMode="stateVisible|adjustResize"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".TermDetails"
