@@ -179,7 +179,8 @@ public class CourseDetails extends AppCompatActivity {
         // comment out the final block
 
         Spinner spin = (Spinner) findViewById(R.id.term);
-        ArrayAdapter<TermEntity> adapter = new ArrayAdapter<TermEntity>(this, android.R.layout.simple_spinner_item);
+        //ArrayAdapter<TermEntity> adapter = new ArrayAdapter<TermEntity>(this, android.R.layout.simple_spinner_item);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spin.setAdapter(adapter);
 
@@ -187,7 +188,13 @@ public class CourseDetails extends AppCompatActivity {
         termViewModel.getAllTerms().observe(this, new Observer<List<TermEntity>>() {
             @Override
             public void onChanged(@Nullable final List<TermEntity> terms) {
-                adapter.addAll(Objects.requireNonNull(terms));
+               // adapter.addAll(terms); // wish I could just populate the spinner with objects and display only the title property...
+
+                String title = "";
+                for(TermEntity current : Objects.requireNonNull(terms)) { // but instead I have to do this for some reason
+                    title = current.getTitle();
+                    adapter.add(title);
+                }
             }
         });
     }

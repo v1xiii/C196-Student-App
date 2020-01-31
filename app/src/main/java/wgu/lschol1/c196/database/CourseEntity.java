@@ -49,4 +49,9 @@ public class CourseEntity implements Serializable {
     public void setEnd(String end) {
         this.end = end;
     }
+
+    @Override
+    public String toString() {
+        return getTitle();
+    }
 }

@@ -41,7 +41,7 @@ public abstract class AppDatabase extends RoomDatabase {
         @Override
         public void onOpen(@NonNull SupportSQLiteDatabase db) {
             super.onOpen(db);
-
+            /*
             databaseWriteExecutor.execute(() -> { // clears table and inserts test data, comment out to save manually entered data
                 TermDao dao = INSTANCE.termDao();
                 dao.deleteAll();
@@ -51,6 +51,7 @@ public abstract class AppDatabase extends RoomDatabase {
                 term = new TermEntity(0,"title2","start2","end2");
                 dao.insert(term);
             });
+            */
 
             databaseWriteExecutor.execute(() -> { // clears table and inserts test data, comment out to save manually entered data
                 CourseDao dao = INSTANCE.courseDao();
