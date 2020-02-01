@@ -11,7 +11,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {TermEntity.class, CourseEntity.class}, version = 2, exportSchema = false)
+@Database(entities = {TermEntity.class, CourseEntity.class}, version = 3, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
 
     public abstract TermDao termDao();
@@ -41,7 +41,7 @@ public abstract class AppDatabase extends RoomDatabase {
         @Override
         public void onOpen(@NonNull SupportSQLiteDatabase db) {
             super.onOpen(db);
-            /*
+
             databaseWriteExecutor.execute(() -> { // clears table and inserts test data, comment out to save manually entered data
                 TermDao dao = INSTANCE.termDao();
                 dao.deleteAll();
@@ -51,15 +51,15 @@ public abstract class AppDatabase extends RoomDatabase {
                 term = new TermEntity(0,"title2","start2","end2");
                 dao.insert(term);
             });
-            */
+
 
             databaseWriteExecutor.execute(() -> { // clears table and inserts test data, comment out to save manually entered data
                 CourseDao dao = INSTANCE.courseDao();
                 dao.deleteAll();
 
-                CourseEntity course = new CourseEntity(0,"title1","start1","end1");
+                CourseEntity course = new CourseEntity(0,"title1","start1","end1", "status1");
                 dao.insert(course);
-                course = new CourseEntity(0,"title2","start2","end2");
+                course = new CourseEntity(0,"title2","start2","end2", "status2");
                 dao.insert(course);
             });
         }

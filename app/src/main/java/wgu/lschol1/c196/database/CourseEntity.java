@@ -14,12 +14,14 @@ public class CourseEntity implements Serializable {
     private String title;
     private String start;
     private String end;
+    private String status;
 
-    public CourseEntity(int id, String title, String start, String end) {
+    public CourseEntity(int id, String title, String start, String end, String status) {
         this.id = id;
         this.title = title;
         this.start = start;
         this.end = end;
+        this.status = status;
     }
 
     public int getId() {
@@ -50,8 +52,18 @@ public class CourseEntity implements Serializable {
         this.end = end;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     @Override
     public String toString() {
         return getTitle();
     }
+
+
 }

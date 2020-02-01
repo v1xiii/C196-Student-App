@@ -39,11 +39,13 @@ public class CourseDetails extends AppCompatActivity {
     EditText courseEndText;
     DatePickerDialog.OnDateSetListener courseStartPicker;
     DatePickerDialog.OnDateSetListener courseEndPicker;
+    Spinner courseStatusText;
 
     public static final String COURSE_ID = "courseId";
     public static final String COURSE_NAME = "courseName";
     public static final String COURSE_START = "courseStart";
     public static final String COURSE_END = "courseEnd";
+    public static final String COURSE_STATUS = "courseStatus";
 
     private CourseEntity courseEntity;
     private int courseId = 0;
@@ -62,6 +64,7 @@ public class CourseDetails extends AppCompatActivity {
         courseNameText = findViewById(R.id.course_name);
         courseStartText = findViewById(R.id.course_start);
         courseEndText = findViewById(R.id.course_end);
+        courseStatusText = findViewById(R.id.course_status);
 
         FloatingActionButton fab = findViewById(R.id.fab);
 
@@ -76,11 +79,13 @@ public class CourseDetails extends AppCompatActivity {
                     String name = courseNameText.getText().toString();
                     String start = courseStartText.getText().toString();
                     String end = courseEndText.getText().toString();
+                    String status = courseStatusText.getSelectedItem().toString();
 
                     extras.putInt(COURSE_ID, courseId);
                     extras.putString(COURSE_NAME, name);
                     extras.putString(COURSE_START, start);
                     extras.putString(COURSE_END, end);
+                    extras.putString(COURSE_STATUS, status);
 
                     replyIntent.putExtras(extras);
 
@@ -125,9 +130,9 @@ public class CourseDetails extends AppCompatActivity {
             }
         });
 
-        setCourseDetails();
         setStatusSpinner();
         setTermSpinner();
+        setCourseDetails();
     }
 
     private void updateText(String field) {
@@ -140,34 +145,8 @@ public class CourseDetails extends AppCompatActivity {
         }
     }
 
-    private void setCourseDetails() {
-        Intent intent = getIntent();
-
-        if (intent.hasExtra("courseEntity")){
-            TextView courseTitle = findViewById(R.id.course_name);
-            TextView courseStart = findViewById(R.id.course_start);
-            TextView courseEnd = findViewById(R.id.course_end);
-
-            courseEntity = (CourseEntity) getIntent().getSerializableExtra("courseEntity");
-            courseId = Objects.requireNonNull(courseEntity).getId();
-
-            courseTitle.setText(courseEntity.getTitle());
-            courseStart.setText(courseEntity.getStart());
-            courseEnd.setText(courseEntity.getEnd());
-        }
-    }
-
-    public void deleteCourse(View view) {
-        CoursesViewModel mCoursesViewModel = new ViewModelProvider(this).get(CoursesViewModel.class);
-        mCoursesViewModel.delete(courseEntity);
-
-        Intent replyIntent = new Intent();
-        setResult(RESULT_CANCELED, replyIntent);
-        finish();
-    }
-
     private void setStatusSpinner(){
-        Spinner spin = (Spinner) findViewById(R.id.course_status);
+        Spinner spin = findViewById(R.id.course_status);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, statuses);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spin.setAdapter(adapter);
@@ -179,8 +158,8 @@ public class CourseDetails extends AppCompatActivity {
         // comment out the final block
 
         Spinner spin = (Spinner) findViewById(R.id.term);
-        //ArrayAdapter<TermEntity> adapter = new ArrayAdapter<TermEntity>(this, android.R.layout.simple_spinner_item);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item);
+        ArrayAdapter<TermEntity> adapter = new ArrayAdapter<TermEntity>(this, android.R.layout.simple_spinner_item);
+        //ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spin.setAdapter(adapter);
 
@@ -188,14 +167,54 @@ public class CourseDetails extends AppCompatActivity {
         termViewModel.getAllTerms().observe(this, new Observer<List<TermEntity>>() {
             @Override
             public void onChanged(@Nullable final List<TermEntity> terms) {
-               // adapter.addAll(terms); // wish I could just populate the spinner with objects and display only the title property...
-
+                adapter.addAll(terms); // wish I could just populate the spinner with objects and display only the title property...
+    /*
                 String title = "";
                 for(TermEntity current : Objects.requireNonNull(terms)) { // but instead I have to do this for some reason
                     title = current.getTitle();
                     adapter.add(title);
                 }
+
+     */
             }
         });
+    }
+
+    private void setCourseDetails() {
+        Intent intent = getIntent();
+
+        if (intent.hasExtra("courseEntity")){
+            TextView courseTitle = findViewById(R.id.course_name);
+            TextView courseStart = findViewById(R.id.course_start);
+            TextView courseEnd = findViewById(R.id.course_end);
+            Spinner courseStatus = findViewById(R.id.course_status);
+
+            courseEntity = (CourseEntity) getIntent().getSerializableExtra("courseEntity");
+            courseId = Objects.requireNonNull(courseEntity).getId();
+
+            courseTitle.setText(courseEntity.getTitle());
+            courseStart.setText(courseEntity.getStart());
+            courseEnd.setText(courseEntity.getEnd());
+            courseStatus.setSelection(getSpinnerIndex(courseStatus, courseEntity.getStatus()));
+        }
+    }
+
+    private int getSpinnerIndex(Spinner spinner, String myString) {
+        int index = 0;
+        for (int i = 0; i < spinner.getCount(); i++) {
+            if (spinner.getItemAtPosition(i).toString().trim().equals(myString.trim())) {
+                index = i;
+            }
+        }
+        return index;
+    }
+
+    public void deleteCourse(View view) {
+        CoursesViewModel mCoursesViewModel = new ViewModelProvider(this).get(CoursesViewModel.class);
+        mCoursesViewModel.delete(courseEntity);
+
+        Intent replyIntent = new Intent();
+        setResult(RESULT_CANCELED, replyIntent);
+        finish();
     }
 }
