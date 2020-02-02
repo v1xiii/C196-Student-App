@@ -1,5 +1,6 @@
 package wgu.lschol1.c196.database;
 
+import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
@@ -48,5 +49,11 @@ public class TermEntity implements Serializable {
 
     public void setEnd(String end) {
         this.end = end;
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return this.title;
     }
 }

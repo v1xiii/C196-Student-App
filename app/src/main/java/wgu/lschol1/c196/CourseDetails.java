@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -30,7 +31,7 @@ import wgu.lschol1.c196.database.TermEntity;
 import wgu.lschol1.c196.viewmodels.CoursesViewModel;
 import wgu.lschol1.c196.viewmodels.TermsViewModel;
 
-public class CourseDetails extends AppCompatActivity {
+public class CourseDetails extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     final Calendar startCalendar = Calendar.getInstance();
     final Calendar endCalendar = Calendar.getInstance();
@@ -153,13 +154,9 @@ public class CourseDetails extends AppCompatActivity {
     }
 
     private void setTermSpinner(){
-        // get the term data and create an array of strings, add array to last parameter of new ArrayAdapter.
-        // type converter to change objects to strings???
-        // comment out the final block
-
         Spinner spin = (Spinner) findViewById(R.id.term);
+        spin.setOnItemSelectedListener(this);
         ArrayAdapter<TermEntity> adapter = new ArrayAdapter<TermEntity>(this, android.R.layout.simple_spinner_item);
-        //ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spin.setAdapter(adapter);
 
@@ -167,18 +164,24 @@ public class CourseDetails extends AppCompatActivity {
         termViewModel.getAllTerms().observe(this, new Observer<List<TermEntity>>() {
             @Override
             public void onChanged(@Nullable final List<TermEntity> terms) {
-                adapter.addAll(terms); // wish I could just populate the spinner with objects and display only the title property...
-    /*
-                String title = "";
-                for(TermEntity current : Objects.requireNonNull(terms)) { // but instead I have to do this for some reason
-                    title = current.getTitle();
-                    adapter.add(title);
-                }
-
-     */
+                adapter.addAll(Objects.requireNonNull(terms));
             }
         });
     }
+
+    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+        /*
+        TODO
+            Make term spinner save term id to course in DB
+            Create mentor entity and related junk
+            Make mentor spinner populate and save
+            Need to figure out how to specify what is what in this onItemSelected() function, will need to play nice with Mentor object as well. (if this thing is of type, do x, else y )
+         */
+
+        TermEntity test = (TermEntity) parent.getItemAtPosition(pos);
+        System.out.println(test.getTitle());
+    }
+    public void onNothingSelected(AdapterView<?> parent) {}
 
     private void setCourseDetails() {
         Intent intent = getIntent();
@@ -216,5 +219,10 @@ public class CourseDetails extends AppCompatActivity {
         Intent replyIntent = new Intent();
         setResult(RESULT_CANCELED, replyIntent);
         finish();
+    }
+
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
+
     }
 }
