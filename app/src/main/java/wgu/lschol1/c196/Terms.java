@@ -53,7 +53,6 @@ public class Terms extends AppCompatActivity {
      - are there other result codes like RESULT_CANCELLED or RESULT_OK?
      - make proper message for backing out of term editor with populated fields (current message is for empty fields)
      - make proper message for term deleted when returning to term list
-     - add/edit course activity, term will be associated with course in course editor
      - all courses list
      - term courses list
      */

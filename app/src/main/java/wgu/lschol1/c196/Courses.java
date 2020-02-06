@@ -52,7 +52,7 @@ public class Courses extends AppCompatActivity {
         startActivityForResult(new Intent(Courses.this, CourseDetails.class), NEW_COURSE_ACTIVITY_REQUEST_CODE);
     }
 
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, Intent data) { // when data comes back from an activity
         super.onActivityResult(requestCode, resultCode, data);
         Bundle extras = null;
 
@@ -65,16 +65,17 @@ public class Courses extends AppCompatActivity {
             */
         }
 
-        if (requestCode == NEW_COURSE_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
+        if (requestCode == NEW_COURSE_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) { // when data comes back from the course details activity (save)
             int courseId = Objects.requireNonNull(extras).getInt(CourseDetails.COURSE_ID,0);
             String courseName = extras.getString(CourseDetails.COURSE_NAME);
             String courseStart = extras.getString(CourseDetails.COURSE_START);
             String courseEnd = extras.getString(CourseDetails.COURSE_END);
             String courseStatus = extras.getString(CourseDetails.COURSE_STATUS);
+            int courseTerm = extras.getInt(CourseDetails.COURSE_TERM,0);
 
-            System.out.println(courseStatus);
+            System.out.println(courseTerm);
 
-            CourseEntity course = new CourseEntity(courseId, courseName, courseStart, courseEnd, courseStatus);
+            CourseEntity course = new CourseEntity(courseId, courseName, courseStart, courseEnd, courseStatus, courseTerm);
             mCoursesViewModel.insert(course);
 
         } else {

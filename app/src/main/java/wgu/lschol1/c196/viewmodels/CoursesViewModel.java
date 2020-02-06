@@ -9,6 +9,7 @@ import java.util.List;
 
 import wgu.lschol1.c196.database.CourseEntity;
 import wgu.lschol1.c196.database.CourseRepository;
+import wgu.lschol1.c196.database.TermEntity;
 
 public class CoursesViewModel extends AndroidViewModel {
 
@@ -32,5 +33,9 @@ public class CoursesViewModel extends AndroidViewModel {
 
     public void delete(CourseEntity course){
         mRepository.delete(course);
+    }
+
+    public TermEntity getTermById(int id) {
+        return mRepository.getTermById(id);
     }
 }

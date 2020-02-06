@@ -9,11 +9,13 @@ import java.util.List;
 public class CourseRepository {
 
     private CourseDao mCourseDao;
+    private TermDao mTermDao;
     private LiveData<List<CourseEntity>> mAllCourses;
 
     public CourseRepository(Application application) {
         AppDatabase db = AppDatabase.getDatabase(application);
         mCourseDao = db.courseDao();
+        mTermDao = db.termDao();
         mAllCourses = mCourseDao.getAllCourses();
     }
 
@@ -31,5 +33,9 @@ public class CourseRepository {
         AppDatabase.databaseWriteExecutor.execute(() -> {
             mCourseDao.delete(course);
         });
+    }
+
+    public TermEntity getTermById(int termId) {
+        return mCourseDao.getTermById(termId);
     }
 }

@@ -13,8 +13,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-import wgu.lschol1.c196.R;
 import wgu.lschol1.c196.CourseDetails;
+import wgu.lschol1.c196.R;
 import wgu.lschol1.c196.database.CourseEntity;
 
 import static wgu.lschol1.c196.Courses.NEW_COURSE_ACTIVITY_REQUEST_CODE;

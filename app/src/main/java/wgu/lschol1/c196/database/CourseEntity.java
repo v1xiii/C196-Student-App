@@ -15,13 +15,15 @@ public class CourseEntity implements Serializable {
     private String start;
     private String end;
     private String status;
+    private int term;
 
-    public CourseEntity(int id, String title, String start, String end, String status) {
+    public CourseEntity(int id, String title, String start, String end, String status, int term) {
         this.id = id;
         this.title = title;
         this.start = start;
         this.end = end;
         this.status = status;
+        this.term = term;
     }
 
     public int getId() {
@@ -55,7 +57,16 @@ public class CourseEntity implements Serializable {
     public String getStatus() {
         return status;
     }
+
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public int getTerm() {
+        return term;
+    }
+
+    public void setTerm(int term) {
+        this.term = term;
     }
 }
