@@ -28,5 +28,5 @@ public interface CourseDao {
     LiveData<List<CourseEntity>> getAllCourses();
 
     @Query("SELECT * FROM terms WHERE id = :id")
-    TermEntity getTermById(int id);
+    LiveData<TermEntity> getTermById(int id);
 }

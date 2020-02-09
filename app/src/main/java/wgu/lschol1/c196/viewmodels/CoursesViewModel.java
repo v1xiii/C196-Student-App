@@ -35,7 +35,7 @@ public class CoursesViewModel extends AndroidViewModel {
         mRepository.delete(course);
     }
 
-    public TermEntity getTermById(int id) {
+    public LiveData<TermEntity> getTermById(int id) {
         return mRepository.getTermById(id);
     }
 }

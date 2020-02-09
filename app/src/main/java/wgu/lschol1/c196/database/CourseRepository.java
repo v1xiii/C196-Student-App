@@ -35,7 +35,7 @@ public class CourseRepository {
         });
     }
 
-    public TermEntity getTermById(int termId) {
+    public LiveData<TermEntity> getTermById(int termId) {
         return mCourseDao.getTermById(termId);
     }
 }

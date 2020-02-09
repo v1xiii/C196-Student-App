@@ -15,7 +15,7 @@ public class CourseDetailsViewModel extends AndroidViewModel {
 
     private CourseRepository mRepository;
     private LiveData<List<CourseEntity>> mAllCourses;
-    private TermEntity mTerm;
+    private LiveData<TermEntity> mTerm;
 
     public CourseDetailsViewModel (Application application, int id) {
         super(application);

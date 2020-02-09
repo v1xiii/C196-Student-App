@@ -180,8 +180,6 @@ public class CourseDetails extends AppCompatActivity implements AdapterView.OnIt
     public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) { // on selection of spinner item, do things
         /*
         TODO
-            Will <LiveData> solve my main thread database issue???
-            Make term spinner select correctly on load, see above
             Create mentor entity and related junk
             Make mentor spinner populate and save
             Need to figure out how to specify what is what in this onItemSelected() function, will need to play nice with Mentor object as well. (if this thing is of type, do x, else y )
@@ -196,6 +194,8 @@ public class CourseDetails extends AppCompatActivity implements AdapterView.OnIt
         Intent intent = getIntent();
 
         if (intent.hasExtra("courseEntity")){
+            CoursesViewModel mCoursesViewModel = new ViewModelProvider(this).get(CoursesViewModel.class);
+
             TextView courseTitle = findViewById(R.id.course_name);
             TextView courseStart = findViewById(R.id.course_start);
             TextView courseEnd = findViewById(R.id.course_end);
@@ -206,15 +206,17 @@ public class CourseDetails extends AppCompatActivity implements AdapterView.OnIt
             courseId = Objects.requireNonNull(courseEntity).getId();
             courseTerm = courseEntity.getTerm();
 
+            // set inputs to this object's values
             courseTitle.setText(courseEntity.getTitle());
             courseStart.setText(courseEntity.getStart());
             courseEnd.setText(courseEntity.getEnd());
             courseStatus.setSelection(getSpinnerIndex(courseStatus, courseEntity.getStatus()));
-            courseTermSpinner.setSelection(courseEntity.getTerm());
-
-            CoursesViewModel mCoursesViewModel = new ViewModelProvider(this).get(CoursesViewModel.class);
-            TermEntity term = mCoursesViewModel.getTermById(courseEntity.getId());
-            System.out.println(term.getTitle());
+            mCoursesViewModel.getTermById(courseEntity.getTerm()).observe(this, new Observer<TermEntity>() {
+                @Override
+                public void onChanged(@Nullable final TermEntity term) {
+                    courseTermSpinner.setSelection(getSpinnerIndex(courseTermSpinner, Objects.requireNonNull(term).getTitle()));
+                }
+            });
         }
     }
 
