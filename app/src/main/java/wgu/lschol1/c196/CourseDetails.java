@@ -180,8 +180,7 @@ public class CourseDetails extends AppCompatActivity implements AdapterView.OnIt
     public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) { // on selection of spinner item, do things
         /*
         TODO
-            Create mentor entity and related junk
-            Make mentor spinner populate and save
+            Make mentor spinner on course details populate and save
             Need to figure out how to specify what is what in this onItemSelected() function, will need to play nice with Mentor object as well. (if this thing is of type, do x, else y )
          */
 

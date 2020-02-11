@@ -31,6 +31,10 @@ public class MainActivity extends AppCompatActivity {
         startActivity(new Intent(MainActivity.this, Assessments.class));
     }
 
+    public void openMentorsPage(View view) {
+        startActivity(new Intent(MainActivity.this, Mentors.class));
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);

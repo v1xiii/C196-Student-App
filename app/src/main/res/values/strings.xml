@@ -14,4 +14,6 @@
     <string name="hint_word">Term…</string>
     <string name="button_save">Save</string>
     <string name="empty_not_saved">Term not saved because it is empty.</string>
+    <string name="title_activity_mentors">Mentors</string>
+    <string name="title_activity_mentor_details">MentorDetails</string>
 </resources>
