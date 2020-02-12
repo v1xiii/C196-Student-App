@@ -27,8 +27,10 @@ import java.util.Locale;
 import java.util.Objects;
 
 import wgu.lschol1.c196.database.CourseEntity;
+import wgu.lschol1.c196.database.MentorEntity;
 import wgu.lschol1.c196.database.TermEntity;
 import wgu.lschol1.c196.viewmodels.CoursesViewModel;
+import wgu.lschol1.c196.viewmodels.MentorsViewModel;
 import wgu.lschol1.c196.viewmodels.TermsViewModel;
 
 public class CourseDetails extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
@@ -42,6 +44,7 @@ public class CourseDetails extends AppCompatActivity implements AdapterView.OnIt
     DatePickerDialog.OnDateSetListener courseEndPicker;
     Spinner courseStatusText;
     Spinner courseTermId;
+    Spinner courseMentorText;
 
     public static final String COURSE_ID = "courseId";
     public static final String COURSE_NAME = "courseName";
@@ -49,6 +52,7 @@ public class CourseDetails extends AppCompatActivity implements AdapterView.OnIt
     public static final String COURSE_END = "courseEnd";
     public static final String COURSE_STATUS = "courseStatus";
     public static final String COURSE_TERM = "courseTerm";
+    public static final String COURSE_MENTOR = "courseMentor";
 
     private CourseEntity courseEntity;
     private TermEntity termEntity;
@@ -65,10 +69,15 @@ public class CourseDetails extends AppCompatActivity implements AdapterView.OnIt
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        courseEntity = (CourseEntity) getIntent().getSerializableExtra("courseEntity"); // get serialized course object from intent
+
+        // ID is global
         courseNameText = findViewById(R.id.course_name);
         courseStartText = findViewById(R.id.course_start);
         courseEndText = findViewById(R.id.course_end);
         courseStatusText = findViewById(R.id.course_status);
+        // term ID is global
+        courseMentorText = findViewById(R.id.course_mentor);
 
         FloatingActionButton fab = findViewById(R.id.fab);
 
@@ -86,6 +95,7 @@ public class CourseDetails extends AppCompatActivity implements AdapterView.OnIt
                     String end = courseEndText.getText().toString();
                     String status = courseStatusText.getSelectedItem().toString();
                     // term ID is set globally
+                    String mentor = courseMentorText.getSelectedItem().toString();
 
                     extras.putInt(COURSE_ID, courseId);
                     extras.putString(COURSE_NAME, name);
@@ -93,8 +103,9 @@ public class CourseDetails extends AppCompatActivity implements AdapterView.OnIt
                     extras.putString(COURSE_END, end);
                     extras.putString(COURSE_STATUS, status);
                     extras.putInt(COURSE_TERM, courseTerm);
+                    extras.putString(COURSE_MENTOR, mentor);
 
-                    System.out.println(courseTerm);
+                    //System.out.println(courseTerm);
 
                     replyIntent.putExtras(extras);
 
@@ -141,7 +152,8 @@ public class CourseDetails extends AppCompatActivity implements AdapterView.OnIt
 
         setStatusSpinner(); // populates the status spinner
         setTermSpinner(); // populates the term spinner
-        setCourseDetails(); // set all of the course fields when a pre-existing course is loaded
+        setMentorSpinner(); // populates the mentor spinner
+
     }
 
     private void updateText(String field) { // update "calendar closed" text to selection
@@ -177,10 +189,31 @@ public class CourseDetails extends AppCompatActivity implements AdapterView.OnIt
         });
     }
 
+    private void setMentorSpinner(){ // populates the mentor spinner
+        Spinner spin = findViewById(R.id.course_mentor);
+        ArrayAdapter<MentorEntity> adapter = new ArrayAdapter<MentorEntity>(this, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spin.setAdapter(adapter);
+
+        MentorsViewModel mentorViewModel = new ViewModelProvider(this).get(MentorsViewModel.class);
+        mentorViewModel.getAllMentors().observe(this, new Observer<List<MentorEntity>>() {
+            @Override
+            public void onChanged(final List<MentorEntity> mentors) {
+                adapter.addAll(mentors);
+
+                setCourseDetails(); // set all of the course fields when a pre-existing course is loaded
+            }
+        });
+    }
+
     public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) { // on selection of spinner item, do things
         /*
         TODO
-            Make mentor spinner on course details populate and save
+            Make mentor spinner on course details save
+                setMentorSpinner() is working, mentors length is 2 after adapter set
+                correct mentor name is coming in from the intent
+                somehow the length of the mentor spinner is always 0, so nothing ever gets compared in getSpinnerIndex()
+                async problem? Need to
             Need to figure out how to specify what is what in this onItemSelected() function, will need to play nice with Mentor object as well. (if this thing is of type, do x, else y )
          */
 
@@ -200,8 +233,8 @@ public class CourseDetails extends AppCompatActivity implements AdapterView.OnIt
             TextView courseEnd = findViewById(R.id.course_end);
             Spinner courseStatus = findViewById(R.id.course_status);
             Spinner courseTermSpinner = findViewById(R.id.course_term);
+            Spinner courseMentor = findViewById(R.id.course_mentor);
 
-            courseEntity = (CourseEntity) getIntent().getSerializableExtra("courseEntity"); // get serialized course object from intent
             courseId = Objects.requireNonNull(courseEntity).getId();
             courseTerm = courseEntity.getTerm();
 
@@ -216,11 +249,13 @@ public class CourseDetails extends AppCompatActivity implements AdapterView.OnIt
                     courseTermSpinner.setSelection(getSpinnerIndex(courseTermSpinner, Objects.requireNonNull(term).getTitle()));
                 }
             });
+            courseMentor.setSelection(getSpinnerIndex(courseMentor, courseEntity.getMentor()));
         }
     }
 
     private int getSpinnerIndex(Spinner spinner, String myString) { // get the index needed to set a spinner to the correct item on load
         int index = 0;
+        System.out.println(spinner.getCount() + " - " + myString);
         for (int i = 0; i < spinner.getCount(); i++) {
             if (spinner.getItemAtPosition(i).toString().trim().equals(myString.trim())) {
                 index = i;

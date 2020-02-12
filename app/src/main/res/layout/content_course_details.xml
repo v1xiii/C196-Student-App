@@ -90,7 +90,7 @@
         app:layout_constraintTop_toBottomOf="@+id/course_status" />
 
     <Spinner
-        android:id="@+id/mentor"
+        android:id="@+id/course_mentor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@android:drawable/btn_dropdown"

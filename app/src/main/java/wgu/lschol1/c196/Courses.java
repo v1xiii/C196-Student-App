@@ -72,10 +72,11 @@ public class Courses extends AppCompatActivity {
             String courseEnd = extras.getString(CourseDetails.COURSE_END);
             String courseStatus = extras.getString(CourseDetails.COURSE_STATUS);
             int courseTerm = extras.getInt(CourseDetails.COURSE_TERM,0);
+            String courseMentor = extras.getString(CourseDetails.COURSE_MENTOR);
 
             System.out.println(courseTerm);
 
-            CourseEntity course = new CourseEntity(courseId, courseName, courseStart, courseEnd, courseStatus, courseTerm);
+            CourseEntity course = new CourseEntity(courseId, courseName, courseStart, courseEnd, courseStatus, courseTerm, courseMentor);
             mCoursesViewModel.insert(course);
 
         } else {

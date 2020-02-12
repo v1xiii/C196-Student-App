@@ -11,7 +11,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {TermEntity.class, CourseEntity.class, MentorEntity.class}, version = 5, exportSchema = false)
+@Database(entities = {TermEntity.class, CourseEntity.class, MentorEntity.class}, version = 6, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
 
     public abstract TermDao termDao();
@@ -42,7 +42,7 @@ public abstract class AppDatabase extends RoomDatabase {
         @Override
         public void onOpen(@NonNull SupportSQLiteDatabase db) {
             super.onOpen(db);
-
+    /*
             databaseWriteExecutor.execute(() -> { // clears table and inserts test data, comment out to save manually entered data
                 TermDao dao = INSTANCE.termDao();
                 dao.deleteAll();
@@ -56,9 +56,19 @@ public abstract class AppDatabase extends RoomDatabase {
             });
 
             databaseWriteExecutor.execute(() -> { // clears table and inserts test data, comment out to save manually entered data
-                CourseDao dao = INSTANCE.courseDao();
+                MentorDao dao = INSTANCE.mentorDao();
                 dao.deleteAll();
 
+                MentorEntity mentor = new MentorEntity(0,"Robert McNamara","111-111-1111","robert.mcnamara@wgu.edu");
+                dao.insert(mentor);
+                mentor = new MentorEntity(0,"Erik Anderson","222-222-2222","erik.anderson@wgu.edu");
+                dao.insert(mentor);
+            });
+     */
+            databaseWriteExecutor.execute(() -> { // clears table and inserts test data, comment out to save manually entered data
+                CourseDao dao = INSTANCE.courseDao();
+                //dao.deleteAll();
+                /*
                 CourseEntity course = new CourseEntity(0,"Biology","02/01/20","05/30/20", "In Progress", 0);
                 dao.insert(course);
                 course = new CourseEntity(0,"Algebra","02/01/20","05/30/20", "Completed", 0);
@@ -67,16 +77,8 @@ public abstract class AppDatabase extends RoomDatabase {
                 dao.insert(course);
                 course = new CourseEntity(0,"English","02/01/20","05/30/20", "Plan to Take", 0);
                 dao.insert(course);
-            });
 
-            databaseWriteExecutor.execute(() -> { // clears table and inserts test data, comment out to save manually entered data
-                MentorDao dao = INSTANCE.mentorDao();
-                dao.deleteAll();
-
-                MentorEntity mentor = new MentorEntity(0,"Robert McNamara","111-111-1111","robert.mcnamara@wgu.edu");
-                dao.insert(mentor);
-                mentor = new MentorEntity(0,"Erik Anderson","222-222-2222","erik.anderson@wgu.edu");
-                dao.insert(mentor);
+                 */
             });
         }
     };

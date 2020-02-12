@@ -16,14 +16,16 @@ public class CourseEntity implements Serializable {
     private String end;
     private String status;
     private int term;
+    private String mentor;
 
-    public CourseEntity(int id, String title, String start, String end, String status, int term) {
+    public CourseEntity(int id, String title, String start, String end, String status, int term, String mentor) {
         this.id = id;
         this.title = title;
         this.start = start;
         this.end = end;
         this.status = status;
         this.term = term;
+        this.mentor = mentor;
     }
 
     public int getId() {
@@ -68,5 +70,13 @@ public class CourseEntity implements Serializable {
 
     public void setTerm(int term) {
         this.term = term;
+    }
+
+    public String getMentor() {
+        return mentor;
+    }
+
+    public void setMentor(String mentor) {
+        this.mentor = mentor;
     }
 }

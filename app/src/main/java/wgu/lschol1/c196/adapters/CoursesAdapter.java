@@ -55,6 +55,8 @@ public class CoursesAdapter extends RecyclerView.Adapter<CoursesAdapter.CourseVi
     public void onBindViewHolder(CourseViewHolder holder, int position) {
         if (mCourses != null) {
             CourseEntity course = mCourses.get(position);
+
+            // set course list-item text
             holder.courseTitle.setText(course.getTitle());
             holder.courseStart.setText(course.getStart());
             holder.courseEnd.setText(course.getEnd());
