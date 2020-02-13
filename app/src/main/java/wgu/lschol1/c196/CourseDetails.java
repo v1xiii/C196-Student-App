@@ -209,12 +209,7 @@ public class CourseDetails extends AppCompatActivity implements AdapterView.OnIt
     public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) { // on selection of spinner item, do things
         /*
         TODO
-            Make mentor spinner on course details save
-                setMentorSpinner() is working, mentors length is 2 after adapter set
-                correct mentor name is coming in from the intent
-                somehow the length of the mentor spinner is always 0, so nothing ever gets compared in getSpinnerIndex()
-                async problem? Need to
-            Need to figure out how to specify what is what in this onItemSelected() function, will need to play nice with Mentor object as well. (if this thing is of type, do x, else y )
+            mentor email and phone output - change text boxes on change of dropdown? Maybe just a link to the mentors page is sufficient?
          */
 
         TermEntity term = (TermEntity) parent.getItemAtPosition(pos);
@@ -275,4 +270,12 @@ public class CourseDetails extends AppCompatActivity implements AdapterView.OnIt
 
     @Override
     public void onPointerCaptureChanged(boolean hasCapture) {}
+
+    public void openAssessmentsPage(View view){
+        Intent intent = new Intent(CourseDetails.this, Assessments.class);
+
+        intent.putExtra("courseId", courseEntity.getId());
+
+        startActivity(new Intent(CourseDetails.this, Assessments.class));
+    }
 }

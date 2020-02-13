@@ -34,3 +34,8 @@ public class Assessments extends AppCompatActivity {
     }
 
 }
+/*
+TODO
+    Assessments (from courses)
+    Assessment Details
+ */
