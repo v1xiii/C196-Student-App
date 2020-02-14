@@ -11,12 +11,13 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {TermEntity.class, CourseEntity.class, MentorEntity.class}, version = 6, exportSchema = false)
+@Database(entities = {TermEntity.class, CourseEntity.class, MentorEntity.class, AssessmentEntity.class}, version = 7, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
 
     public abstract TermDao termDao();
     public abstract CourseDao courseDao();
     public abstract MentorDao mentorDao();
+    public abstract AssessmentDao assessmentDao();
 
     private static volatile AppDatabase INSTANCE;
     private static final int NUMBER_OF_THREADS = 4;
@@ -42,7 +43,7 @@ public abstract class AppDatabase extends RoomDatabase {
         @Override
         public void onOpen(@NonNull SupportSQLiteDatabase db) {
             super.onOpen(db);
-    /*
+
             databaseWriteExecutor.execute(() -> { // clears table and inserts test data, comment out to save manually entered data
                 TermDao dao = INSTANCE.termDao();
                 dao.deleteAll();
@@ -64,7 +65,7 @@ public abstract class AppDatabase extends RoomDatabase {
                 mentor = new MentorEntity(0,"Erik Anderson","222-222-2222","erik.anderson@wgu.edu");
                 dao.insert(mentor);
             });
-     */
+
             databaseWriteExecutor.execute(() -> { // clears table and inserts test data, comment out to save manually entered data
                 CourseDao dao = INSTANCE.courseDao();
                 //dao.deleteAll();
