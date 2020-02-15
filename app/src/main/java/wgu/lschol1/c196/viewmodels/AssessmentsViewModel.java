@@ -9,6 +9,7 @@ import java.util.List;
 
 import wgu.lschol1.c196.database.AssessmentEntity;
 import wgu.lschol1.c196.database.AssessmentRepository;
+import wgu.lschol1.c196.database.CourseEntity;
 
 public class AssessmentsViewModel extends AndroidViewModel {
 
@@ -32,5 +33,9 @@ public class AssessmentsViewModel extends AndroidViewModel {
 
     public void delete(AssessmentEntity assessment){
         mRepository.delete(assessment);
+    }
+
+    public LiveData<CourseEntity> getCourseById(int id) {
+        return mRepository.getCourseById(id);
     }
 }

@@ -9,11 +9,13 @@ import java.util.List;
 public class AssessmentRepository {
 
     private AssessmentDao mAssessmentDao;
+    private TermDao mTermDao;
     private LiveData<List<AssessmentEntity>> mAllAssessments;
 
     public AssessmentRepository(Application application) {
         AppDatabase db = AppDatabase.getDatabase(application);
         mAssessmentDao = db.assessmentDao();
+        mTermDao = db.termDao();
         mAllAssessments = mAssessmentDao.getAllAssessments();
     }
 
@@ -31,5 +33,9 @@ public class AssessmentRepository {
         AppDatabase.databaseWriteExecutor.execute(() -> {
             mAssessmentDao.delete(assessment);
         });
+    }
+
+    public LiveData<CourseEntity> getCourseById(int courseId) {
+        return mAssessmentDao.getCourseById(courseId);
     }
 }

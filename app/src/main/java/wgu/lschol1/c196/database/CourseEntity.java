@@ -1,5 +1,6 @@
 package wgu.lschol1.c196.database;
 
+import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
@@ -78,5 +79,11 @@ public class CourseEntity implements Serializable {
 
     public void setMentor(String mentor) {
         this.mentor = mentor;
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return this.title;
     }
 }

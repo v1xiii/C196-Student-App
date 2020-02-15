@@ -28,11 +28,8 @@ import java.util.Objects;
 
 import wgu.lschol1.c196.database.AssessmentEntity;
 import wgu.lschol1.c196.database.CourseEntity;
-import wgu.lschol1.c196.database.MentorEntity;
-import wgu.lschol1.c196.database.TermEntity;
 import wgu.lschol1.c196.viewmodels.AssessmentsViewModel;
-import wgu.lschol1.c196.viewmodels.MentorsViewModel;
-import wgu.lschol1.c196.viewmodels.TermsViewModel;
+import wgu.lschol1.c196.viewmodels.CoursesViewModel;
 
 public class AssessmentDetails extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
@@ -77,7 +74,7 @@ public class AssessmentDetails extends AppCompatActivity implements AdapterView.
         assessmentGoalDateText = findViewById(R.id.assessment_goal_date);
         assessmentDueDateText = findViewById(R.id.assessment_due_date);
         assessmentTypeText = findViewById(R.id.assessment_type);
-        // term ID is global
+        // course ID is global
 
         FloatingActionButton fab = findViewById(R.id.fab);
 
@@ -96,6 +93,8 @@ public class AssessmentDetails extends AppCompatActivity implements AdapterView.
                     String type = assessmentTypeText.getSelectedItem().toString();
                     // course ID is set globally
 
+                    System.out.println(dueDate);
+
                     extras.putInt(ASSESSMENT_ID, assessmentId);
                     extras.putString(ASSESSMENT_NAME, name);
                     extras.putString(ASSESSMENT_GOAL_DATE, goalDate);
@@ -113,74 +112,75 @@ public class AssessmentDetails extends AppCompatActivity implements AdapterView.
             }
         });
 
-        assessmentGoalDatePicker = new DatePickerDialog.OnDateSetListener() { // start date selection listener
+        assessmentGoalDatePicker = new DatePickerDialog.OnDateSetListener() { // goal date selection listener
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) { // set calendar
                 goalDateCalendar.set(Calendar.YEAR, year);
                 goalDateCalendar.set(Calendar.MONTH, monthOfYear);
                 goalDateCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                updateText("goalDate"); // update start date text to selection
+                updateText("goalDate"); // update goal date text to selection
             }
         };
-        assessmentDueDatePicker = new DatePickerDialog.OnDateSetListener() { // end date selection listener
+        assessmentDueDatePicker = new DatePickerDialog.OnDateSetListener() { // due date selection listener
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) { // set calendar
                 dueDateCalendar.set(Calendar.YEAR, year);
                 dueDateCalendar.set(Calendar.MONTH, monthOfYear);
                 dueDateCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                updateText("dueDate"); // update end date text to selection
+                updateText("dueDate"); // update due date text to selection
             }
         };
 
         assessmentGoalDateText = findViewById(R.id.assessment_goal_date);
         assessmentDueDateText = findViewById(R.id.assessment_due_date);
 
-        assessmentGoalDateText.setOnClickListener(new View.OnClickListener() { // display the start calendar when the date text is clicked
+        assessmentGoalDateText.setOnClickListener(new View.OnClickListener() { // display the goal date calendar when the date text is clicked
             @Override
             public void onClick(View v) {
                 new DatePickerDialog(AssessmentDetails.this, assessmentGoalDatePicker, goalDateCalendar.get(Calendar.YEAR), goalDateCalendar.get(Calendar.MONTH), goalDateCalendar.get(Calendar.DAY_OF_MONTH)).show();
             }
         });
-        assessmentDueDateText.setOnClickListener(new View.OnClickListener() { // display the end calendar when the date text is clicked
+        assessmentDueDateText.setOnClickListener(new View.OnClickListener() { // display the due date calendar when the date text is clicked
             @Override
             public void onClick(View v) {
                 new DatePickerDialog(AssessmentDetails.this, assessmentDueDatePicker, dueDateCalendar.get(Calendar.YEAR), dueDateCalendar.get(Calendar.MONTH), dueDateCalendar.get(Calendar.DAY_OF_MONTH)).show();
             }
         });
 
-        setTypeSpinner(); // populates the status spinner
-        setCourseSpinner(); // populates the term spinner
+        setTypeSpinner(); // populates the type spinner
+        setCourseSpinner(); // populates the course spinner
+        setAssessmentDetails();
     }
 
     private void updateText(String field) { // update "calendar closed" text to selection
         String myFormat = "MM/dd/yy";
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
-        if (field.equals("start")){
+        if (field.equals("goalDate")){
             assessmentGoalDateText.setText(sdf.format(goalDateCalendar.getTime()));
         } else {
             assessmentDueDateText.setText(sdf.format(dueDateCalendar.getTime()));
         }
     }
 
-    private void setTypeSpinner(){ // populates the status spinner
+    private void setTypeSpinner(){ // populates the type spinner
         Spinner spin = findViewById(R.id.assessment_type);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, types);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spin.setAdapter(adapter);
     }
 
-    private void setCourseSpinner(){ // populates the term spinner
+    private void setCourseSpinner(){ // populates the course spinner
         Spinner spin = (Spinner) findViewById(R.id.assessment_course);
         spin.setOnItemSelectedListener(this);
-        ArrayAdapter<TermEntity> adapter = new ArrayAdapter<TermEntity>(this, android.R.layout.simple_spinner_item);
+        ArrayAdapter<CourseEntity> adapter = new ArrayAdapter<CourseEntity>(this, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spin.setAdapter(adapter);
 
-        TermsViewModel termViewModel = new ViewModelProvider(this).get(TermsViewModel.class);
-        termViewModel.getAllTerms().observe(this, new Observer<List<TermEntity>>() {
+        CoursesViewModel courseViewModel = new ViewModelProvider(this).get(CoursesViewModel.class);
+        courseViewModel.getAllCourses().observe(this, new Observer<List<CourseEntity>>() {
             @Override
-            public void onChanged(@Nullable final List<TermEntity> terms) {
-                adapter.addAll(Objects.requireNonNull(terms));
+            public void onChanged(@Nullable final List<CourseEntity> courses) {
+                adapter.addAll(Objects.requireNonNull(courses));
             }
         });
     }
@@ -222,7 +222,7 @@ public class AssessmentDetails extends AppCompatActivity implements AdapterView.
 
     private int getSpinnerIndex(Spinner spinner, String myString) { // get the index needed to set a spinner to the correct item on load
         int index = 0;
-        System.out.println(spinner.getCount() + " - " + myString);
+        //System.out.println(spinner.getCount() + " - " + myString);
         for (int i = 0; i < spinner.getCount(); i++) {
             if (spinner.getItemAtPosition(i).toString().trim().equals(myString.trim())) {
                 index = i;
