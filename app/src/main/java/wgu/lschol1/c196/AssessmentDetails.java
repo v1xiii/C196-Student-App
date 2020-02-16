@@ -68,13 +68,14 @@ public class AssessmentDetails extends AppCompatActivity implements AdapterView.
         setSupportActionBar(toolbar);
 
         assessmentEntity = (AssessmentEntity) getIntent().getSerializableExtra("assessmentEntity"); // get serialized assessment object from intent
+        System.out.println("loaded assessment has courseID of - " + assessmentEntity.getCourse());
 
         // ID is global
         assessmentNameText = findViewById(R.id.assessment_name);
         assessmentGoalDateText = findViewById(R.id.assessment_goal_date);
         assessmentDueDateText = findViewById(R.id.assessment_due_date);
         assessmentTypeText = findViewById(R.id.assessment_type);
-        // course ID is global
+        // course ID is set onCreate
 
         FloatingActionButton fab = findViewById(R.id.fab);
 
@@ -91,18 +92,16 @@ public class AssessmentDetails extends AppCompatActivity implements AdapterView.
                     String goalDate = assessmentGoalDateText.getText().toString();
                     String dueDate = assessmentDueDateText.getText().toString();
                     String type = assessmentTypeText.getSelectedItem().toString();
-                    // course ID is set globally
-
-                    System.out.println(dueDate);
+                    int course = assessmentEntity.getCourse();
 
                     extras.putInt(ASSESSMENT_ID, assessmentId);
                     extras.putString(ASSESSMENT_NAME, name);
                     extras.putString(ASSESSMENT_GOAL_DATE, goalDate);
                     extras.putString(ASSESSMENT_DUE_DATE, dueDate);
                     extras.putString(ASSESSMENT_TYPE, type);
-                    extras.putInt(ASSESSMENT_COURSE, assessmentCourse);
+                    extras.putInt(ASSESSMENT_COURSE, course);
 
-                    //System.out.println(assessmentCourse);
+                    System.out.println("Submitting assessment with courseId of - " + course);
 
                     replyIntent.putExtras(extras);
 
@@ -148,7 +147,7 @@ public class AssessmentDetails extends AppCompatActivity implements AdapterView.
         });
 
         setTypeSpinner(); // populates the type spinner
-        setCourseSpinner(); // populates the course spinner
+        //setCourseSpinner(); // populates the course spinner
         setAssessmentDetails();
     }
 

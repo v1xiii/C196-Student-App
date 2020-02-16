@@ -209,6 +209,7 @@ public class CourseDetails extends AppCompatActivity implements AdapterView.OnIt
     public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) { // on selection of spinner item, do things
         /*
         TODO
+            need to send courseID to assessment list so it only pulls assessments for this particular course
             mentor email and phone output - change text boxes on change of dropdown? Maybe just a link to the mentors page is sufficient?
          */
 
@@ -250,7 +251,7 @@ public class CourseDetails extends AppCompatActivity implements AdapterView.OnIt
 
     private int getSpinnerIndex(Spinner spinner, String myString) { // get the index needed to set a spinner to the correct item on load
         int index = 0;
-        System.out.println(spinner.getCount() + " - " + myString);
+        //System.out.println(spinner.getCount() + " - " + myString);
         for (int i = 0; i < spinner.getCount(); i++) {
             if (spinner.getItemAtPosition(i).toString().trim().equals(myString.trim())) {
                 index = i;
@@ -268,14 +269,12 @@ public class CourseDetails extends AppCompatActivity implements AdapterView.OnIt
         finish();
     }
 
-    @Override
-    public void onPointerCaptureChanged(boolean hasCapture) {}
-
     public void openAssessmentsPage(View view){
         Intent intent = new Intent(CourseDetails.this, Assessments.class);
-
-        intent.putExtra("courseId", courseEntity.getId());
-
-        startActivity(new Intent(CourseDetails.this, Assessments.class));
+        intent.putExtra("COURSE_ID", courseEntity.getId());
+        startActivity(intent);
     }
+
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {}
 }

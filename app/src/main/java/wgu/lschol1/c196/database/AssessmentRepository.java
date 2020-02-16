@@ -23,6 +23,10 @@ public class AssessmentRepository {
         return mAllAssessments;
     }
 
+    public LiveData<List<AssessmentEntity>> getAssessmentsByCourseId(int courseId) {
+        return mAssessmentDao.getAssessmentsByCourseId(courseId);
+    }
+
     public void insert(AssessmentEntity assessment) {
         AppDatabase.databaseWriteExecutor.execute(() -> {
             mAssessmentDao.insert(assessment);

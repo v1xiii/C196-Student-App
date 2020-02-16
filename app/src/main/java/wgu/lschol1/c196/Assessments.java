@@ -40,7 +40,9 @@ public class Assessments extends AppCompatActivity {
 
         mAssessmentsViewModel = new ViewModelProvider(this).get(AssessmentsViewModel.class);
 
-        mAssessmentsViewModel.getAllAssessments().observe(this, new Observer<List<AssessmentEntity>>() {
+        int courseId = getIntent().getExtras().getInt("COURSE_ID");
+        System.out.println("pulling assessments for course - " + courseId);
+        mAssessmentsViewModel.getAssessmentsByCourseId(courseId).observe(this, new Observer<List<AssessmentEntity>>() {
             @Override
             public void onChanged(@Nullable final List<AssessmentEntity> assessments) {
                 adapter.setAssessments(assessments);
@@ -73,7 +75,7 @@ public class Assessments extends AppCompatActivity {
             String assessmentType = extras.getString(AssessmentDetails.ASSESSMENT_TYPE);
             int assessmentCourse = extras.getInt(AssessmentDetails.ASSESSMENT_COURSE,0);
 
-            System.out.println(assessmentCourse);
+            System.out.println("Saving assessment with courseId of - " + assessmentCourse);
 
             AssessmentEntity assessment = new AssessmentEntity(assessmentId, assessmentName, assessmentGoalDate, assessmentDueDate, assessmentType, assessmentCourse);
             mAssessmentsViewModel.insert(assessment);
