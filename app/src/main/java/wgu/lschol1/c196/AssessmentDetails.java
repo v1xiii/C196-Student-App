@@ -12,24 +12,20 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 
 import wgu.lschol1.c196.database.AssessmentEntity;
 import wgu.lschol1.c196.database.CourseEntity;
 import wgu.lschol1.c196.viewmodels.AssessmentsViewModel;
-import wgu.lschol1.c196.viewmodels.CoursesViewModel;
 
 public class AssessmentDetails extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
@@ -147,8 +143,10 @@ public class AssessmentDetails extends AppCompatActivity implements AdapterView.
         });
 
         setTypeSpinner(); // populates the type spinner
-        //setCourseSpinner(); // populates the course spinner
         setAssessmentDetails();
+        /*
+        TODO - get rid of course spinner
+         */
     }
 
     private void updateText(String field) { // update "calendar closed" text to selection
@@ -168,22 +166,6 @@ public class AssessmentDetails extends AppCompatActivity implements AdapterView.
         spin.setAdapter(adapter);
     }
 
-    private void setCourseSpinner(){ // populates the course spinner
-        Spinner spin = (Spinner) findViewById(R.id.assessment_course);
-        spin.setOnItemSelectedListener(this);
-        ArrayAdapter<CourseEntity> adapter = new ArrayAdapter<CourseEntity>(this, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spin.setAdapter(adapter);
-
-        CoursesViewModel courseViewModel = new ViewModelProvider(this).get(CoursesViewModel.class);
-        courseViewModel.getAllCourses().observe(this, new Observer<List<CourseEntity>>() {
-            @Override
-            public void onChanged(@Nullable final List<CourseEntity> courses) {
-                adapter.addAll(Objects.requireNonNull(courses));
-            }
-        });
-    }
-
     public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) { // on selection of spinner item, do things
         CourseEntity course = (CourseEntity) parent.getItemAtPosition(pos);
         assessmentCourse = course.getId();
@@ -200,7 +182,6 @@ public class AssessmentDetails extends AppCompatActivity implements AdapterView.
             TextView assessmentGoalDate = findViewById(R.id.assessment_goal_date);
             TextView assessmentDueDate = findViewById(R.id.assessment_due_date);
             Spinner assessmentType = findViewById(R.id.assessment_type);
-            Spinner assessmentCourseSpinner = findViewById(R.id.assessment_course);
 
             assessmentId = Objects.requireNonNull(assessmentEntity).getId();
             assessmentCourse = assessmentEntity.getCourse();
@@ -210,12 +191,6 @@ public class AssessmentDetails extends AppCompatActivity implements AdapterView.
             assessmentGoalDate.setText(assessmentEntity.getGoalDate());
             assessmentDueDate.setText(assessmentEntity.getDueDate());
             assessmentType.setSelection(getSpinnerIndex(assessmentType, assessmentEntity.getType()));
-            mAssessmentsViewModel.getCourseById(assessmentEntity.getCourse()).observe(this, new Observer<CourseEntity>() {
-                @Override
-                public void onChanged(@Nullable final CourseEntity course) {
-                    assessmentCourseSpinner.setSelection(getSpinnerIndex(assessmentCourseSpinner, Objects.requireNonNull(course).getTitle()));
-                }
-            });
         }
     }
 
