@@ -152,4 +152,10 @@ public class TermDetails extends AppCompatActivity {
         setResult(RESULT_CANCELED, replyIntent);
         finish();
     }
+
+    public void openCoursesPage(View view){
+        Intent intent = new Intent(TermDetails.this, Courses.class);
+        intent.putExtra("TERM_ID", termEntity.getId());
+        startActivity(intent);
+    }
 }

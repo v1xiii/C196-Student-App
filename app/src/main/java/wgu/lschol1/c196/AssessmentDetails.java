@@ -144,9 +144,6 @@ public class AssessmentDetails extends AppCompatActivity implements AdapterView.
 
         setTypeSpinner(); // populates the type spinner
         setAssessmentDetails();
-        /*
-        TODO - get rid of course spinner
-         */
     }
 
     private void updateText(String field) { // update "calendar closed" text to selection

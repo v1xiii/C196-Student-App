@@ -23,6 +23,10 @@ public class CourseRepository {
         return mAllCourses;
     }
 
+    public LiveData<List<CourseEntity>> getCoursesByTermId(int termId) {
+        return mCourseDao.getCoursesByTermId(termId);
+    }
+
     public void insert(CourseEntity course) {
         AppDatabase.databaseWriteExecutor.execute(() -> {
             mCourseDao.insert(course);

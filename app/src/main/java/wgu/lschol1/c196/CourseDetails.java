@@ -209,7 +209,6 @@ public class CourseDetails extends AppCompatActivity implements AdapterView.OnIt
     public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) { // on selection of spinner item, do things
         /*
         TODO
-            need to send courseID to assessment list so it only pulls assessments for this particular course
             mentor email and phone output - change text boxes on change of dropdown? Maybe just a link to the mentors page is sufficient?
          */
 
