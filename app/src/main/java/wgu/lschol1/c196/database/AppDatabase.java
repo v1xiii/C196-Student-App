@@ -11,13 +11,14 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {TermEntity.class, CourseEntity.class, MentorEntity.class, AssessmentEntity.class}, version = 8, exportSchema = false)
+@Database(entities = {TermEntity.class, CourseEntity.class, MentorEntity.class, AssessmentEntity.class, NoteEntity.class}, version = 9, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
 
     public abstract TermDao termDao();
     public abstract CourseDao courseDao();
     public abstract MentorDao mentorDao();
     public abstract AssessmentDao assessmentDao();
+    public abstract NoteDao noteDao();
 
     private static volatile AppDatabase INSTANCE;
     private static final int NUMBER_OF_THREADS = 4;

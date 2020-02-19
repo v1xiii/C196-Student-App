@@ -16,4 +16,6 @@
     <string name="empty_not_saved">Term not saved because it is empty.</string>
     <string name="title_activity_mentors">Mentors</string>
     <string name="title_activity_mentor_details">MentorDetails</string>
+    <string name="title_activity_notes">notes</string>
+    <string name="title_activity_note_details">note_details</string>
 </resources>

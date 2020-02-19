@@ -274,6 +274,12 @@ public class CourseDetails extends AppCompatActivity implements AdapterView.OnIt
         startActivity(intent);
     }
 
+    public void openNotesPage(View view){
+        Intent intent = new Intent(CourseDetails.this, Notes.class);
+        intent.putExtra("COURSE_ID", courseEntity.getId());
+        startActivity(intent);
+    }
+
     @Override
     public void onPointerCaptureChanged(boolean hasCapture) {}
 }

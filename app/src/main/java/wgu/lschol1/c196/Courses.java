@@ -42,16 +42,18 @@ public class Courses extends AppCompatActivity {
 
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
-        if (Objects.requireNonNull(extras).containsKey("TERM_ID")) { // courses by term ID (from term details)
-            int termId = extras.getInt("TERM_ID", 0);
-            System.out.println("pulling courses for term - " + termId);
+        if (extras != null){
+            if (extras.containsKey("TERM_ID")) { // courses by term ID (from term details)
+                int termId = extras.getInt("TERM_ID", 0);
+                System.out.println("pulling courses for term - " + termId);
 
-            mCoursesViewModel.getCoursesByTermId(termId).observe(this, new Observer<List<CourseEntity>>() {
-                @Override
-                public void onChanged(@Nullable final List<CourseEntity> courses) {
-                    adapter.setCourses(courses);
-                }
-            });
+                mCoursesViewModel.getCoursesByTermId(termId).observe(this, new Observer<List<CourseEntity>>() {
+                    @Override
+                    public void onChanged(@Nullable final List<CourseEntity> courses) {
+                        adapter.setCourses(courses);
+                    }
+                });
+            }
         } else { // all courses (from main page)
             mCoursesViewModel.getAllCourses().observe(this, new Observer<List<CourseEntity>>() {
                 @Override
