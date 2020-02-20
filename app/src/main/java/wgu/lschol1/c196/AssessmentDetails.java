@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -24,10 +23,9 @@ import java.util.Locale;
 import java.util.Objects;
 
 import wgu.lschol1.c196.database.AssessmentEntity;
-import wgu.lschol1.c196.database.CourseEntity;
 import wgu.lschol1.c196.viewmodels.AssessmentsViewModel;
 
-public class AssessmentDetails extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class AssessmentDetails extends AppCompatActivity {
 
     EditText assessmentNameText;
     
@@ -49,9 +47,8 @@ public class AssessmentDetails extends AppCompatActivity implements AdapterView.
     public static final String ASSESSMENT_COURSE = "assessmentCourse";
 
     private AssessmentEntity assessmentEntity;
-    private CourseEntity courseEntity;
-    private int assessmentId = 0;
 
+    private int assessmentId = 0;
     private int assessmentCourse = 0;
 
     String[] types = { "Performance", "Objective" };
@@ -64,7 +61,15 @@ public class AssessmentDetails extends AppCompatActivity implements AdapterView.
         setSupportActionBar(toolbar);
 
         assessmentEntity = (AssessmentEntity) getIntent().getSerializableExtra("assessmentEntity"); // get serialized assessment object from intent
-        System.out.println("loaded assessment has courseID of - " + assessmentEntity.getCourse());
+
+        if (assessmentEntity == null){
+            Intent intent = getIntent();
+            Bundle extras = intent.getExtras();
+            if (extras.containsKey("COURSE_ID")){
+                assessmentCourse = extras.getInt("COURSE_ID", 0);
+            }
+        }
+        //System.out.println("loaded assessment has courseID of - " + assessmentEntity.getCourse());
 
         // ID is global
         assessmentNameText = findViewById(R.id.assessment_name);
@@ -88,7 +93,7 @@ public class AssessmentDetails extends AppCompatActivity implements AdapterView.
                     String goalDate = assessmentGoalDateText.getText().toString();
                     String dueDate = assessmentDueDateText.getText().toString();
                     String type = assessmentTypeText.getSelectedItem().toString();
-                    int course = assessmentEntity.getCourse();
+                    int course = assessmentCourse;
 
                     extras.putInt(ASSESSMENT_ID, assessmentId);
                     extras.putString(ASSESSMENT_NAME, name);
@@ -162,12 +167,6 @@ public class AssessmentDetails extends AppCompatActivity implements AdapterView.
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spin.setAdapter(adapter);
     }
-
-    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) { // on selection of spinner item, do things
-        CourseEntity course = (CourseEntity) parent.getItemAtPosition(pos);
-        assessmentCourse = course.getId();
-    }
-    public void onNothingSelected(AdapterView<?> parent) {}
 
     private void setAssessmentDetails() { // set all of the assessment fields when a pre-existing assessment is loaded
         Intent intent = getIntent();

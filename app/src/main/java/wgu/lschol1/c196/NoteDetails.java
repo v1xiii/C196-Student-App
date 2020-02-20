@@ -17,7 +17,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.Objects;
 
-import wgu.lschol1.c196.database.CourseEntity;
 import wgu.lschol1.c196.database.NoteEntity;
 import wgu.lschol1.c196.viewmodels.NotesViewModel;
 
@@ -39,9 +38,8 @@ public class NoteDetails extends AppCompatActivity {
     public static final String NOTE_COURSE = "noteCourse";
 
     private NoteEntity noteEntity;
-    private CourseEntity courseEntity;
-    private int noteId = 0;
 
+    private int noteId = 0;
     private int noteCourse = 0;
 
     String[] types = { "Performance", "Objective" };
@@ -54,7 +52,14 @@ public class NoteDetails extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         noteEntity = (NoteEntity) getIntent().getSerializableExtra("noteEntity"); // get serialized note object from intent
-        System.out.println("loaded note has courseID of - " + noteEntity.getCourse());
+        if (noteEntity == null){
+            Intent intent = getIntent();
+            Bundle extras = intent.getExtras();
+            if (extras.containsKey("COURSE_ID")){
+                noteCourse = extras.getInt("COURSE_ID", 0);
+            }
+        }
+        //System.out.println("loaded note has courseID of - " + noteEntity.getCourse());
 
         // ID is global
         noteNameText = findViewById(R.id.note_name);
@@ -74,7 +79,7 @@ public class NoteDetails extends AppCompatActivity {
                     // ID is set globally
                     String name = noteNameText.getText().toString();
                     String bodyText = noteBodyText.getText().toString();
-                    int course = noteEntity.getCourse();
+                    int course = noteCourse;
 
                     extras.putInt(NOTE_ID, noteId);
                     extras.putString(NOTE_NAME, name);

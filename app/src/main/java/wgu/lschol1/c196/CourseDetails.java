@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -95,7 +96,10 @@ public class CourseDetails extends AppCompatActivity implements AdapterView.OnIt
                     String end = courseEndText.getText().toString();
                     String status = courseStatusText.getSelectedItem().toString();
                     // term ID is set globally
-                    String mentor = courseMentorText.getSelectedItem().toString();
+                    String mentor = null;
+                    if(courseMentorText != null && courseMentorText.getSelectedItem() !=null ) {
+                        mentor = courseMentorText.getSelectedItem().toString();
+                    }
 
                     extras.putInt(COURSE_ID, courseId);
                     extras.putString(COURSE_NAME, name);
@@ -153,7 +157,6 @@ public class CourseDetails extends AppCompatActivity implements AdapterView.OnIt
         setStatusSpinner(); // populates the status spinner
         setTermSpinner(); // populates the term spinner
         setMentorSpinner(); // populates the mentor spinner
-
     }
 
     private void updateText(String field) { // update "calendar closed" text to selection
@@ -245,6 +248,15 @@ public class CourseDetails extends AppCompatActivity implements AdapterView.OnIt
                 }
             });
             courseMentor.setSelection(getSpinnerIndex(courseMentor, courseEntity.getMentor()));
+
+        } else {
+            Button assessmentsButton = findViewById(R.id.assessments_button);
+            Button notesButton = findViewById(R.id.notes_button);
+            Button deleteButton = findViewById(R.id.delete_button);
+
+            assessmentsButton.setVisibility(View.GONE);
+            notesButton.setVisibility(View.GONE);
+            deleteButton.setVisibility(View.GONE);
         }
     }
 

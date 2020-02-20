@@ -24,6 +24,7 @@ public class Assessments extends AppCompatActivity {
 
     private AssessmentsViewModel mAssessmentsViewModel;
     public static final int NEW_ASSESSMENT_ACTIVITY_REQUEST_CODE = 1;
+    private int courseId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +41,7 @@ public class Assessments extends AppCompatActivity {
 
         mAssessmentsViewModel = new ViewModelProvider(this).get(AssessmentsViewModel.class);
 
-        int courseId = getIntent().getExtras().getInt("COURSE_ID");
+        courseId = getIntent().getExtras().getInt("COURSE_ID");
         System.out.println("pulling assessments for course - " + courseId);
         mAssessmentsViewModel.getAssessmentsByCourseId(courseId).observe(this, new Observer<List<AssessmentEntity>>() {
             @Override
@@ -51,7 +52,9 @@ public class Assessments extends AppCompatActivity {
     }
 
     public void openAssessmentDetailsPage(View view) {
-        startActivityForResult(new Intent(Assessments.this, AssessmentDetails.class), NEW_ASSESSMENT_ACTIVITY_REQUEST_CODE);
+        Intent intent = new Intent(Assessments.this, AssessmentDetails.class);
+        intent.putExtra("COURSE_ID", courseId);
+        startActivityForResult(intent, NEW_ASSESSMENT_ACTIVITY_REQUEST_CODE);
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) { // when data comes back from an activity

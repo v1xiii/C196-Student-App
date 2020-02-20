@@ -48,25 +48,25 @@ public abstract class AppDatabase extends RoomDatabase {
             databaseWriteExecutor.execute(() -> { // clears table and inserts test data, comment out to save manually entered data
                 TermDao dao = INSTANCE.termDao();
                 //dao.deleteAll();
-                /*
+/*
                 TermEntity term = new TermEntity(0,"Spring","02/01/20","05/30/20");
                 dao.insert(term);
                 term = new TermEntity(0,"Summer","06/01/20","08/31/20");
                 dao.insert(term);
                 term = new TermEntity(0,"Fall","09/01/20","12/31/20");
                 dao.insert(term);
-                 */
+ */
             });
 
             databaseWriteExecutor.execute(() -> { // clears table and inserts test data, comment out to save manually entered data
                 MentorDao dao = INSTANCE.mentorDao();
                 //dao.deleteAll();
-                /*
+/*
                 MentorEntity mentor = new MentorEntity(0,"Robert McNamara","111-111-1111","robert.mcnamara@wgu.edu");
                 dao.insert(mentor);
                 mentor = new MentorEntity(0,"Erik Anderson","222-222-2222","erik.anderson@wgu.edu");
                 dao.insert(mentor);
-                 */
+ */
             });
 
             databaseWriteExecutor.execute(() -> { // clears table and inserts test data, comment out to save manually entered data

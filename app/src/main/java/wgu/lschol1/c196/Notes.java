@@ -24,6 +24,7 @@ public class Notes extends AppCompatActivity {
 
     private NotesViewModel mNotesViewModel;
     public static final int NEW_NOTE_ACTIVITY_REQUEST_CODE = 1;
+    private int courseId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +41,7 @@ public class Notes extends AppCompatActivity {
 
         mNotesViewModel = new ViewModelProvider(this).get(NotesViewModel.class);
 
-        int courseId = getIntent().getExtras().getInt("COURSE_ID");
+        courseId = getIntent().getExtras().getInt("COURSE_ID");
         System.out.println("pulling notes for course - " + courseId);
         mNotesViewModel.getNotesByCourseId(courseId).observe(this, new Observer<List<NoteEntity>>() {
             @Override
@@ -51,7 +52,9 @@ public class Notes extends AppCompatActivity {
     }
 
     public void openNoteDetailsPage(View view) {
-        startActivityForResult(new Intent(Notes.this, NoteDetails.class), NEW_NOTE_ACTIVITY_REQUEST_CODE);
+        Intent intent = new Intent(Notes.this, NoteDetails.class);
+        intent.putExtra("COURSE_ID", courseId);
+        startActivityForResult(intent, NEW_NOTE_ACTIVITY_REQUEST_CODE);
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) { // when data comes back from an activity
