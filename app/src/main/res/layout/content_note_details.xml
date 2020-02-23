@@ -31,7 +31,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/note_body_text" />
+        app:layout_constraintTop_toBottomOf="@+id/button3" />
 
     <TextView
         android:id="@+id/textView7"
@@ -49,15 +49,26 @@
     <EditText
         android:id="@+id/note_body_text"
         android:layout_width="wrap_content"
-        android:ems="10"
-        android:hint="Note Body"
-        android:gravity="start|top"
         android:layout_height="150dp"
+        android:ems="10"
+        android:gravity="start|top"
+        android:hint="Note Body"
         android:inputType="text|textMultiLine"
-        app:layout_constraintBottom_toTopOf="@+id/delete_button2"
+        app:layout_constraintBottom_toTopOf="@+id/button3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/note_name" />
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Share"
+        app:layout_constraintBottom_toTopOf="@+id/delete_button2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/note_body_text" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

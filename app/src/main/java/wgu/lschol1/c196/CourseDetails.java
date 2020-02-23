@@ -294,6 +294,10 @@ public class CourseDetails extends AppCompatActivity implements AdapterView.OnIt
         startActivity(intent);
     }
 
+    public void openMentorsPage(View view) {
+        startActivity(new Intent(CourseDetails.this, Mentors.class));
+    }
+
     @Override
     public void onPointerCaptureChanged(boolean hasCapture) {}
 }
