@@ -21,6 +21,10 @@ public class TermRepository {
         return mAllTerms;
     }
 
+    public LiveData<List<CourseEntity>> getCoursesByTermId(int termId) {
+        return mTermDao.getCoursesByTermId(termId);
+    }
+
     public void insert(TermEntity term) {
         AppDatabase.databaseWriteExecutor.execute(() -> {
             mTermDao.insert(term);

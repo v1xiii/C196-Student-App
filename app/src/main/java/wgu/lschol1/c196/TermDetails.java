@@ -8,18 +8,23 @@ import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 
+import wgu.lschol1.c196.database.CourseEntity;
 import wgu.lschol1.c196.database.TermEntity;
 import wgu.lschol1.c196.viewmodels.TermsViewModel;
 
@@ -146,11 +151,22 @@ public class TermDetails extends AppCompatActivity {
 
     public void deleteTerm(View view) {
         TermsViewModel mTermsViewModel = new ViewModelProvider(this).get(TermsViewModel.class);
-        mTermsViewModel.delete(termEntity);
+        mTermsViewModel.getCoursesByTermId(termId).observe(this, new Observer<List<CourseEntity>>() {
+            @Override
+            public void onChanged(@Nullable final List<CourseEntity> courses) {
+                if (courses != null) {
+                    if (courses.isEmpty()) {
+                        mTermsViewModel.delete(termEntity);
 
-        Intent replyIntent = new Intent();
-        setResult(RESULT_CANCELED, replyIntent);
-        finish();
+                        Intent replyIntent = new Intent();
+                        setResult(RESULT_CANCELED, replyIntent);
+                        finish();
+                    } else {
+                        Toast.makeText(getApplicationContext(),R.string.cannot_delete_term,Toast.LENGTH_LONG).show();
+                    }
+                }
+            }
+        });
     }
 
     public void openCoursesPage(View view){

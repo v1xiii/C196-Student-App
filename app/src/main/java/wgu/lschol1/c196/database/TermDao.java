@@ -23,4 +23,7 @@ public interface TermDao {
 
     @Query("SELECT * FROM terms ORDER BY id ASC")
     LiveData<List<TermEntity>> getAllTerms();
+
+    @Query("SELECT * FROM courses WHERE term = :tid")
+    LiveData<List<CourseEntity>> getCoursesByTermId(int tid);
 }
