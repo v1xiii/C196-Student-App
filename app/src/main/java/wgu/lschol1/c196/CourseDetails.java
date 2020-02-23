@@ -247,7 +247,9 @@ public class CourseDetails extends AppCompatActivity implements AdapterView.OnIt
                     courseTermSpinner.setSelection(getSpinnerIndex(courseTermSpinner, Objects.requireNonNull(term).getTitle()));
                 }
             });
-            courseMentor.setSelection(getSpinnerIndex(courseMentor, courseEntity.getMentor()));
+            if (courseEntity.getMentor() != null){
+                courseMentor.setSelection(getSpinnerIndex(courseMentor, courseEntity.getMentor()));
+            }
 
         } else {
             Button assessmentsButton = findViewById(R.id.assessments_button);

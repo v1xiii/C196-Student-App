@@ -215,9 +215,13 @@ public class AssessmentDetails extends AppCompatActivity {
 
     public void openAssessmentsPage(View view){
         Intent intent = new Intent(AssessmentDetails.this, Assessments.class);
-
         intent.putExtra("assessmentId", assessmentEntity.getId());
-
         startActivity(new Intent(AssessmentDetails.this, Assessments.class));
+    }
+
+    public void openNotesPage(View view){
+        Intent intent = new Intent(AssessmentDetails.this, Notes.class);
+        intent.putExtra("COURSE_ID", assessmentCourse);
+        startActivity(intent);
     }
 }
