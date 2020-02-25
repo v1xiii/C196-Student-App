@@ -64,6 +64,7 @@
         android:id="@+id/button3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:onClick="shareNote"
         android:text="Share"
         app:layout_constraintBottom_toTopOf="@+id/delete_button2"
         app:layout_constraintEnd_toEndOf="parent"

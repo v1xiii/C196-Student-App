@@ -131,9 +131,15 @@ public class NoteDetails extends AppCompatActivity {
 
     public void openNotesPage(View view){
         Intent intent = new Intent(NoteDetails.this, Notes.class);
-
         intent.putExtra("noteId", noteEntity.getId());
-
         startActivity(new Intent(NoteDetails.this, Notes.class));
+    }
+
+    public void shareNote(View view){
+        Intent txtIntent = new Intent(android.content.Intent.ACTION_SEND);
+        txtIntent .setType("text/plain");
+        txtIntent .putExtra(android.content.Intent.EXTRA_SUBJECT, noteEntity.getName());
+        txtIntent .putExtra(android.content.Intent.EXTRA_TEXT, noteEntity.getBodyText());
+        startActivity(Intent.createChooser(txtIntent ,"Share"));
     }
 }
