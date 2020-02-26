@@ -1,5 +1,7 @@
 package wgu.lschol1.c196;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -77,14 +79,28 @@ public class Assessments extends AppCompatActivity {
             String assessmentDueDate = extras.getString(AssessmentDetails.ASSESSMENT_DUE_DATE);
             String assessmentType = extras.getString(AssessmentDetails.ASSESSMENT_TYPE);
             int assessmentCourse = extras.getInt(AssessmentDetails.ASSESSMENT_COURSE,0);
+            long assessmentAlarm = extras.getLong(AssessmentDetails.ASSESSMENT_ALARM, 0);
 
             System.out.println("Saving assessment with courseId of - " + assessmentCourse);
 
             AssessmentEntity assessment = new AssessmentEntity(assessmentId, assessmentName, assessmentGoalDate, assessmentDueDate, assessmentType, assessmentCourse);
             mAssessmentsViewModel.insert(assessment);
 
+            setGoalDateNotification(assessmentAlarm);
+
         } else {
             Toast.makeText(getApplicationContext(),R.string.empty_not_saved,Toast.LENGTH_LONG).show();
+        }
+    }
+
+    public void setGoalDateNotification(long assessmentGoalDate){
+        Intent intent = new Intent(this, NotificationReceiver.class);
+        intent.putExtra("key","This is a short message");
+        PendingIntent pendingIntent= PendingIntent.getBroadcast(this,0,intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        AlarmManager alarm = (AlarmManager)getSystemService(ALARM_SERVICE);
+        if (alarm != null) {
+            alarm.set(AlarmManager.RTC_WAKEUP, assessmentGoalDate, pendingIntent);
+            System.out.println(assessmentGoalDate);
         }
     }
 }

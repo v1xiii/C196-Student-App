@@ -45,6 +45,7 @@ public class AssessmentDetails extends AppCompatActivity {
     public static final String ASSESSMENT_DUE_DATE = "assessmentDueDate";
     public static final String ASSESSMENT_TYPE = "assessmentType";
     public static final String ASSESSMENT_COURSE = "assessmentCourse";
+    public static final String ASSESSMENT_ALARM = "assessmentAlarm";
 
     private AssessmentEntity assessmentEntity;
 
@@ -94,6 +95,7 @@ public class AssessmentDetails extends AppCompatActivity {
                     String dueDate = assessmentDueDateText.getText().toString();
                     String type = assessmentTypeText.getSelectedItem().toString();
                     int course = assessmentCourse;
+                    long alarmTime = goalDateCalendar.getTimeInMillis();
 
                     extras.putInt(ASSESSMENT_ID, assessmentId);
                     extras.putString(ASSESSMENT_NAME, name);
@@ -101,12 +103,15 @@ public class AssessmentDetails extends AppCompatActivity {
                     extras.putString(ASSESSMENT_DUE_DATE, dueDate);
                     extras.putString(ASSESSMENT_TYPE, type);
                     extras.putInt(ASSESSMENT_COURSE, course);
+                    extras.putLong(ASSESSMENT_ALARM, alarmTime);
 
                     System.out.println("Submitting assessment with courseId of - " + course);
 
                     replyIntent.putExtras(extras);
 
                     setResult(RESULT_OK, replyIntent);
+
+                    //setGoalDateNotification(assessmentGoalDateText.getText().toString()); // TODO move this and associated method to assessments to happen after saved
                 }
                 finish();
             }
@@ -150,6 +155,19 @@ public class AssessmentDetails extends AppCompatActivity {
         setTypeSpinner(); // populates the type spinner
         setAssessmentDetails();
     }
+
+    /*
+    public void setGoalDateNotification(String assessmentGoalDate){
+        Intent intent = new Intent(this, NotificationReceiver.class);
+        intent.putExtra("key","This is a short message");
+        PendingIntent pendingIntent= PendingIntent.getBroadcast(this,0,intent,0);
+        AlarmManager alarm = (AlarmManager)getSystemService(ALARM_SERVICE);
+        long date = Long.parseLong(assessmentGoalDate);
+        if (alarm != null) {
+            alarm.set(AlarmManager.RTC_WAKEUP, date, pendingIntent);
+        }
+    }
+     */
 
     private void updateText(String field) { // update "calendar closed" text to selection
         String myFormat = "MM/dd/yy";
