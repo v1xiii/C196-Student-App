@@ -110,8 +110,6 @@ public class AssessmentDetails extends AppCompatActivity {
                     replyIntent.putExtras(extras);
 
                     setResult(RESULT_OK, replyIntent);
-
-                    //setGoalDateNotification(assessmentGoalDateText.getText().toString()); // TODO move this and associated method to assessments to happen after saved
                 }
                 finish();
             }
@@ -155,19 +153,6 @@ public class AssessmentDetails extends AppCompatActivity {
         setTypeSpinner(); // populates the type spinner
         setAssessmentDetails();
     }
-
-    /*
-    public void setGoalDateNotification(String assessmentGoalDate){
-        Intent intent = new Intent(this, NotificationReceiver.class);
-        intent.putExtra("key","This is a short message");
-        PendingIntent pendingIntent= PendingIntent.getBroadcast(this,0,intent,0);
-        AlarmManager alarm = (AlarmManager)getSystemService(ALARM_SERVICE);
-        long date = Long.parseLong(assessmentGoalDate);
-        if (alarm != null) {
-            alarm.set(AlarmManager.RTC_WAKEUP, date, pendingIntent);
-        }
-    }
-     */
 
     private void updateText(String field) { // update "calendar closed" text to selection
         String myFormat = "MM/dd/yy";

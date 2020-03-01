@@ -86,21 +86,21 @@ public class Assessments extends AppCompatActivity {
             AssessmentEntity assessment = new AssessmentEntity(assessmentId, assessmentName, assessmentGoalDate, assessmentDueDate, assessmentType, assessmentCourse);
             mAssessmentsViewModel.insert(assessment);
 
-            setGoalDateNotification(assessmentAlarm);
+            setGoalDateNotification(assessmentName, assessmentAlarm);
 
         } else {
             Toast.makeText(getApplicationContext(),R.string.empty_not_saved,Toast.LENGTH_LONG).show();
         }
     }
 
-    public void setGoalDateNotification(long assessmentGoalDate){
+    public void setGoalDateNotification(String assessmentName, long assessmentAlarm){
         Intent intent = new Intent(this, NotificationReceiver.class);
-        intent.putExtra("key","This is a short message");
+        intent.putExtra("title","Today is your goal date!");
+        intent.putExtra("message", "For assessment - "+assessmentName);
         PendingIntent pendingIntent= PendingIntent.getBroadcast(this,0,intent, PendingIntent.FLAG_UPDATE_CURRENT);
         AlarmManager alarm = (AlarmManager)getSystemService(ALARM_SERVICE);
         if (alarm != null) {
-            alarm.set(AlarmManager.RTC_WAKEUP, assessmentGoalDate, pendingIntent);
-            System.out.println(assessmentGoalDate);
+            alarm.set(AlarmManager.RTC_WAKEUP, assessmentAlarm, pendingIntent);
         }
     }
 }
