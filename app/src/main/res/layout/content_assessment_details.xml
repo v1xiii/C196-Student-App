@@ -1,105 +1,111 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fillViewport="true"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".AssessmentDetails"
     tools:showIn="@layout/activity_assessment_details">
 
-    <EditText
-        android:id="@+id/assessment_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Assessment Name"
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/assessment_type"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView7" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/delete_button2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="deleteAssessment"
-        android:text="Delete Assessment"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button" />
+        <EditText
+            android:id="@+id/assessment_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Assessment Name"
+            android:inputType="textPersonName"
+            app:layout_constraintBottom_toTopOf="@+id/assessment_type"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
-    <EditText
-        android:id="@+id/assessment_due_date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:clickable="true"
-        android:ems="10"
-        android:focusable="false"
-        android:hint="Due Date"
-        android:inputType="date"
-        app:layout_constraintBottom_toTopOf="@+id/button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/assessment_goal_date" />
+        <Button
+            android:id="@+id/delete_button2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="deleteAssessment"
+            android:text="Delete Assessment"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/button" />
 
-    <EditText
-        android:id="@+id/assessment_goal_date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:clickable="true"
-        android:ems="10"
-        android:focusable="false"
-        android:hint="Goal Date"
-        android:inputType="date"
-        app:layout_constraintBottom_toTopOf="@+id/assessment_due_date"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/assessment_type" />
+        <EditText
+            android:id="@+id/assessment_due_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:ems="10"
+            android:focusable="false"
+            android:hint="Due Date"
+            android:inputType="date"
+            app:layout_constraintBottom_toTopOf="@+id/button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/assessment_goal_date" />
 
-    <TextView
-        android:id="@+id/textView7"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Assessment Details"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/assessment_name"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <EditText
+            android:id="@+id/assessment_goal_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:ems="10"
+            android:focusable="false"
+            android:hint="Goal Date"
+            android:inputType="date"
+            app:layout_constraintBottom_toTopOf="@+id/assessment_due_date"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/assessment_type" />
 
-    <Spinner
-        android:id="@+id/assessment_type"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@android:drawable/btn_dropdown"
-        android:ems="10"
-        android:hint="Assessment Type"
-        android:spinnerMode="dropdown"
-        app:layout_constraintBottom_toTopOf="@+id/assessment_goal_date"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/assessment_name" />
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Assessment Details"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/assessment_name"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="openNotesPage"
-        android:text="@string/title_activity_notes"
-        app:layout_constraintBottom_toTopOf="@+id/delete_button2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/assessment_due_date" />
+        <Spinner
+            android:id="@+id/assessment_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:drawable/btn_dropdown"
+            android:ems="10"
+            android:hint="Assessment Type"
+            android:spinnerMode="dropdown"
+            app:layout_constraintBottom_toTopOf="@+id/assessment_goal_date"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/assessment_name" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <Button
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="openNotesPage"
+            android:text="@string/title_activity_notes"
+            app:layout_constraintBottom_toTopOf="@+id/delete_button2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/assessment_due_date" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
