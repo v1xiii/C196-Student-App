@@ -19,7 +19,7 @@ public class NotificationReceiver extends BroadcastReceiver {
     String channel_id = "test";
 
     @Override
-    public void onReceive(Context context, Intent intent) { // This method is called when the BroadcastReceiver is receiving
+    public void onReceive(Context context, Intent intent) { // This method is called when a notification broadcast is detected
         Toast.makeText(context,intent.getStringExtra("key"),Toast.LENGTH_LONG).show();
         createNotificationChannel(context,channel_id);
 
@@ -42,8 +42,6 @@ public class NotificationReceiver extends BroadcastReceiver {
             NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
             channel.setDescription(description);
 
-            // Register the channel with the system; you can't change the importance
-            // or other notification behaviors after this
             NotificationManager notificationManager = context.getSystemService(NotificationManager.class);
             notificationManager.createNotificationChannel(channel);
         }

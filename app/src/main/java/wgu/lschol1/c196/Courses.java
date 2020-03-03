@@ -1,5 +1,7 @@
 package wgu.lschol1.c196;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -89,14 +91,30 @@ public class Courses extends AppCompatActivity {
             String courseStatus = extras.getString(CourseDetails.COURSE_STATUS);
             int courseTerm = extras.getInt(CourseDetails.COURSE_TERM,0);
             String courseMentor = extras.getString(CourseDetails.COURSE_MENTOR);
+            long courseStartAlarm = extras.getLong(CourseDetails.COURSE_START_ALARM, 0);
+            long courseEndAlarm = extras.getLong(CourseDetails.COURSE_END_ALARM, 0);
 
             System.out.println(courseTerm);
 
             CourseEntity course = new CourseEntity(courseId, courseName, courseStart, courseEnd, courseStatus, courseTerm, courseMentor);
             mCoursesViewModel.insert(course);
 
+            setDateNotification(courseName, courseStartAlarm, "Start");
+            setDateNotification(courseName, courseEndAlarm, "End");
+
         } else {
             Toast.makeText(getApplicationContext(),R.string.empty_not_saved,Toast.LENGTH_LONG).show();
+        }
+    }
+
+    public void setDateNotification(String name, long alarmTime, String type){
+        Intent intent = new Intent(this, NotificationReceiver.class);
+        intent.putExtra("title","Today is your "+type+" date!");
+        intent.putExtra("message", "For course - "+name);
+        PendingIntent pendingIntent= PendingIntent.getBroadcast(this,0,intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        AlarmManager alarm = (AlarmManager)getSystemService(ALARM_SERVICE);
+        if (alarm != null) {
+            alarm.set(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
         }
     }
 }

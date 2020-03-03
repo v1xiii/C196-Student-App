@@ -54,6 +54,8 @@ public class CourseDetails extends AppCompatActivity implements AdapterView.OnIt
     public static final String COURSE_STATUS = "courseStatus";
     public static final String COURSE_TERM = "courseTerm";
     public static final String COURSE_MENTOR = "courseMentor";
+    public static final String COURSE_START_ALARM = "courseStartAlarm";
+    public static final String COURSE_END_ALARM = "courseEndAlarm";
 
     private CourseEntity courseEntity;
     private TermEntity termEntity;
@@ -100,6 +102,8 @@ public class CourseDetails extends AppCompatActivity implements AdapterView.OnIt
                     if(courseMentorText != null && courseMentorText.getSelectedItem() !=null ) {
                         mentor = courseMentorText.getSelectedItem().toString();
                     }
+                    long startAlarmTime = startCalendar.getTimeInMillis();
+                    long endAlarmTime = endCalendar.getTimeInMillis();
 
                     extras.putInt(COURSE_ID, courseId);
                     extras.putString(COURSE_NAME, name);
@@ -108,6 +112,8 @@ public class CourseDetails extends AppCompatActivity implements AdapterView.OnIt
                     extras.putString(COURSE_STATUS, status);
                     extras.putInt(COURSE_TERM, courseTerm);
                     extras.putString(COURSE_MENTOR, mentor);
+                    extras.putLong(COURSE_START_ALARM, startAlarmTime);
+                    extras.putLong(COURSE_END_ALARM, endAlarmTime);
 
                     //System.out.println(courseTerm);
 
@@ -210,14 +216,10 @@ public class CourseDetails extends AppCompatActivity implements AdapterView.OnIt
     }
 
     public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) { // on selection of spinner item, do things
-        /*
-        TODO
-            mentor email and phone output - change text boxes on change of dropdown? Maybe just a link to the mentors page is sufficient?
-         */
-
         TermEntity term = (TermEntity) parent.getItemAtPosition(pos);
         courseTerm = term.getId();
     }
+
     public void onNothingSelected(AdapterView<?> parent) {}
 
     private void setCourseDetails() { // set all of the course fields when a pre-existing course is loaded
