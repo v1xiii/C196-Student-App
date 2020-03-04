@@ -45,7 +45,8 @@ public class AssessmentDetails extends AppCompatActivity {
     public static final String ASSESSMENT_DUE_DATE = "assessmentDueDate";
     public static final String ASSESSMENT_TYPE = "assessmentType";
     public static final String ASSESSMENT_COURSE = "assessmentCourse";
-    public static final String ASSESSMENT_ALARM = "assessmentAlarm";
+    public static final String ASSESSMENT_GOAL_ALARM = "assessmentGoalAlarm";
+    public static final String ASSESSMENT_DUE_ALARM = "assessmentDueAlarm";
 
     private AssessmentEntity assessmentEntity;
 
@@ -95,7 +96,8 @@ public class AssessmentDetails extends AppCompatActivity {
                     String dueDate = assessmentDueDateText.getText().toString();
                     String type = assessmentTypeText.getSelectedItem().toString();
                     int course = assessmentCourse;
-                    long alarmTime = goalDateCalendar.getTimeInMillis();
+                    long alarmGoalTime = goalDateCalendar.getTimeInMillis();
+                    long alarmDueTime = goalDateCalendar.getTimeInMillis();
 
                     extras.putInt(ASSESSMENT_ID, assessmentId);
                     extras.putString(ASSESSMENT_NAME, name);
@@ -103,7 +105,8 @@ public class AssessmentDetails extends AppCompatActivity {
                     extras.putString(ASSESSMENT_DUE_DATE, dueDate);
                     extras.putString(ASSESSMENT_TYPE, type);
                     extras.putInt(ASSESSMENT_COURSE, course);
-                    extras.putLong(ASSESSMENT_ALARM, alarmTime);
+                    extras.putLong(ASSESSMENT_GOAL_ALARM, alarmGoalTime);
+                    extras.putLong(ASSESSMENT_DUE_ALARM, alarmDueTime);
 
                     System.out.println("Submitting assessment with courseId of - " + course);
 

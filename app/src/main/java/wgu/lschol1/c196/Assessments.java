@@ -79,23 +79,25 @@ public class Assessments extends AppCompatActivity {
             String assessmentDueDate = extras.getString(AssessmentDetails.ASSESSMENT_DUE_DATE);
             String assessmentType = extras.getString(AssessmentDetails.ASSESSMENT_TYPE);
             int assessmentCourse = extras.getInt(AssessmentDetails.ASSESSMENT_COURSE,0);
-            long assessmentAlarm = extras.getLong(AssessmentDetails.ASSESSMENT_ALARM, 0);
+            long assessmentGoalAlarm = extras.getLong(AssessmentDetails.ASSESSMENT_GOAL_ALARM, 0);
+            long assessmentDueAlarm = extras.getLong(AssessmentDetails.ASSESSMENT_DUE_ALARM, 0);
 
             System.out.println("Saving assessment with courseId of - " + assessmentCourse);
 
             AssessmentEntity assessment = new AssessmentEntity(assessmentId, assessmentName, assessmentGoalDate, assessmentDueDate, assessmentType, assessmentCourse);
             mAssessmentsViewModel.insert(assessment);
 
-            setGoalDateNotification(assessmentName, assessmentAlarm);
+            setDateNotification(assessmentName, assessmentGoalAlarm, "Goal");
+            setDateNotification(assessmentName, assessmentDueAlarm, "Due");
 
         } else {
             Toast.makeText(getApplicationContext(),R.string.empty_not_saved,Toast.LENGTH_LONG).show();
         }
     }
 
-    public void setGoalDateNotification(String assessmentName, long assessmentAlarm){
+    public void setDateNotification(String assessmentName, long assessmentAlarm, String type){
         Intent intent = new Intent(this, NotificationReceiver.class);
-        intent.putExtra("title","Today is your goal date!");
+        intent.putExtra("title","Today is your assessment "+type+" date!");
         intent.putExtra("message", "For assessment - "+assessmentName);
         PendingIntent pendingIntent= PendingIntent.getBroadcast(this,0,intent, PendingIntent.FLAG_UPDATE_CURRENT);
         AlarmManager alarm = (AlarmManager)getSystemService(ALARM_SERVICE);

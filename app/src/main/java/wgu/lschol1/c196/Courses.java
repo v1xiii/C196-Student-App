@@ -109,7 +109,7 @@ public class Courses extends AppCompatActivity {
 
     public void setDateNotification(String name, long alarmTime, String type){
         Intent intent = new Intent(this, NotificationReceiver.class);
-        intent.putExtra("title","Today is your "+type+" date!");
+        intent.putExtra("title","Today is your course "+type+" date!");
         intent.putExtra("message", "For course - "+name);
         PendingIntent pendingIntent= PendingIntent.getBroadcast(this,0,intent, PendingIntent.FLAG_UPDATE_CURRENT);
         AlarmManager alarm = (AlarmManager)getSystemService(ALARM_SERVICE);
