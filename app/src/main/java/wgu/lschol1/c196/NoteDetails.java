@@ -42,8 +42,6 @@ public class NoteDetails extends AppCompatActivity {
     private int noteId = 0;
     private int noteCourse = 0;
 
-    String[] types = { "Performance", "Objective" };
-
     @Override
     protected void onCreate(Bundle savedInstanceState) { // initialize the activity
         super.onCreate(savedInstanceState);

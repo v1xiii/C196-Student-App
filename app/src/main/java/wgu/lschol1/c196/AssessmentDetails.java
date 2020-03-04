@@ -18,6 +18,8 @@ import androidx.lifecycle.ViewModelProvider;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Locale;
 import java.util.Objects;
@@ -53,7 +55,8 @@ public class AssessmentDetails extends AppCompatActivity {
     private int assessmentId = 0;
     private int assessmentCourse = 0;
 
-    String[] types = { "Performance", "Objective" };
+    //String[] types = { "Performance", "Objective" };
+    ArrayList<String> types = new ArrayList<>(Arrays.asList("Performance", "Objective"));
 
     @Override
     protected void onCreate(Bundle savedInstanceState) { // initialize the activity
