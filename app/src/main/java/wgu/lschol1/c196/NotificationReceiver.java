@@ -7,7 +7,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
-import android.widget.Toast;
 
 import androidx.core.app.NotificationCompat;
 
@@ -20,7 +19,7 @@ public class NotificationReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) { // This method is called when a notification broadcast is detected
-        Toast.makeText(context,intent.getStringExtra("key"),Toast.LENGTH_LONG).show();
+        //Toast.makeText(context,intent.getStringExtra("key"),Toast.LENGTH_LONG).show();
         createNotificationChannel(context,channel_id);
 
         Notification n = new NotificationCompat.Builder(context, channel_id)

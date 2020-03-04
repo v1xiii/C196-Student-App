@@ -100,7 +100,7 @@ public class AssessmentDetails extends AppCompatActivity {
                     String type = assessmentTypeText.getSelectedItem().toString();
                     int course = assessmentCourse;
                     long alarmGoalTime = goalDateCalendar.getTimeInMillis();
-                    long alarmDueTime = goalDateCalendar.getTimeInMillis();
+                    long alarmDueTime = dueDateCalendar.getTimeInMillis();
 
                     extras.putInt(ASSESSMENT_ID, assessmentId);
                     extras.putString(ASSESSMENT_NAME, name);

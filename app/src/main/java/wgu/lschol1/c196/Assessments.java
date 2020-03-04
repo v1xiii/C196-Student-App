@@ -99,7 +99,8 @@ public class Assessments extends AppCompatActivity {
         Intent intent = new Intent(this, NotificationReceiver.class);
         intent.putExtra("title","Today is your assessment "+type+" date!");
         intent.putExtra("message", "For assessment - "+assessmentName);
-        PendingIntent pendingIntent= PendingIntent.getBroadcast(this,0,intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        int code = (int)(Math.random() * 999999999 + 1);
+        PendingIntent pendingIntent= PendingIntent.getBroadcast(this, code, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         AlarmManager alarm = (AlarmManager)getSystemService(ALARM_SERVICE);
         if (alarm != null) {
             alarm.set(AlarmManager.RTC_WAKEUP, assessmentAlarm, pendingIntent);
