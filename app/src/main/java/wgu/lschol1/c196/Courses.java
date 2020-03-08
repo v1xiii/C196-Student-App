@@ -108,6 +108,7 @@ public class Courses extends AppCompatActivity {
     }
 
     public void setDateNotification(String name, long alarmTime, String type){
+        //System.out.println(alarmTime);
         Intent intent = new Intent(this, NotificationReceiver.class);
         intent.putExtra("title","Today is your course "+type+" date!");
         intent.putExtra("message", "For course - "+name);

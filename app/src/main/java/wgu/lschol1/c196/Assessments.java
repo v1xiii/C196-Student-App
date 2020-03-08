@@ -96,6 +96,7 @@ public class Assessments extends AppCompatActivity {
     }
 
     public void setDateNotification(String assessmentName, long assessmentAlarm, String type){
+        //System.out.println(assessmentAlarm);
         Intent intent = new Intent(this, NotificationReceiver.class);
         intent.putExtra("title","Today is your assessment "+type+" date!");
         intent.putExtra("message", "For assessment - "+assessmentName);

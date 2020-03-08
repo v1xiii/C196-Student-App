@@ -48,14 +48,6 @@ public class Terms extends AppCompatActivity {
         });
     }
 
-    /*
-    TODO
-     - are there other result codes like RESULT_CANCELLED or RESULT_OK?
-     - make proper message for backing out of term editor with populated fields (current message is for empty fields)
-     - make proper message for term deleted when returning to term list
-     - term courses list
-     */
-
     public void openTermDetailsPage(View view) {
         startActivityForResult(new Intent(Terms.this, TermDetails.class), NEW_TERM_ACTIVITY_REQUEST_CODE);
     }

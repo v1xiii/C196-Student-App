@@ -111,7 +111,7 @@ public class AssessmentDetails extends AppCompatActivity {
                     extras.putLong(ASSESSMENT_GOAL_ALARM, alarmGoalTime);
                     extras.putLong(ASSESSMENT_DUE_ALARM, alarmDueTime);
 
-                    System.out.println("Submitting assessment with courseId of - " + course);
+                    //System.out.println("Submitting assessment with courseId of - " + course);
 
                     replyIntent.putExtras(extras);
 
