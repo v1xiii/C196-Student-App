@@ -140,6 +140,8 @@ public class AssessmentDetails extends AppCompatActivity {
             }
         };
 
+        setCalendars();
+
         assessmentGoalDateText = findViewById(R.id.assessment_goal_date);
         assessmentDueDateText = findViewById(R.id.assessment_due_date);
 
@@ -167,6 +169,18 @@ public class AssessmentDetails extends AppCompatActivity {
             assessmentGoalDateText.setText(sdf.format(goalDateCalendar.getTime()));
         } else {
             assessmentDueDateText.setText(sdf.format(dueDateCalendar.getTime()));
+        }
+    }
+
+    private void setCalendars(){
+        if (assessmentEntity != null) {
+            String[] goalDateValues = assessmentEntity.getGoalDate().split("/");
+            goalDateValues[2] = "20" + goalDateValues[2];
+            String[] dueDateValues = assessmentEntity.getDueDate().split("/");
+            dueDateValues[2] = "20" + dueDateValues[2];
+
+            goalDateCalendar.set(Integer.parseInt(goalDateValues[2]), Integer.parseInt(goalDateValues[0])-1, Integer.parseInt(goalDateValues[1]));
+            dueDateCalendar.set(Integer.parseInt(dueDateValues[2]), Integer.parseInt(dueDateValues[0])-1, Integer.parseInt(dueDateValues[1]));
         }
     }
 

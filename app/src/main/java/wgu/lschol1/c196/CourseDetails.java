@@ -131,7 +131,7 @@ public class CourseDetails extends AppCompatActivity implements AdapterView.OnIt
                 startCalendar.set(Calendar.YEAR, year);
                 startCalendar.set(Calendar.MONTH, monthOfYear);
                 startCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                updateText("start"); // update start date text to selection
+                updateText("start"); // set start date text for this entity
             }
         };
         courseEndPicker = new DatePickerDialog.OnDateSetListener() { // end date selection listener
@@ -140,9 +140,11 @@ public class CourseDetails extends AppCompatActivity implements AdapterView.OnIt
                 endCalendar.set(Calendar.YEAR, year);
                 endCalendar.set(Calendar.MONTH, monthOfYear);
                 endCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                updateText("end"); // update end date text to selection
+                updateText("end"); // set end date text for this entity
             }
         };
+
+        setCalendars(); // set the underlying calendar Y/m/d values
 
         courseStartText = findViewById(R.id.course_start);
         courseEndText = findViewById(R.id.course_end);
@@ -172,6 +174,18 @@ public class CourseDetails extends AppCompatActivity implements AdapterView.OnIt
             courseStartText.setText(sdf.format(startCalendar.getTime()));
         } else {
             courseEndText.setText(sdf.format(endCalendar.getTime()));
+        }
+    }
+
+    private void setCalendars(){
+        if (courseEntity != null) {
+            String[] startValues = courseEntity.getStart().split("/");
+            startValues[2] = "20" + startValues[2];
+            String[] endValues = courseEntity.getEnd().split("/");
+            endValues[2] = "20" + endValues[2];
+
+            startCalendar.set(Integer.parseInt(startValues[2]), Integer.parseInt(startValues[0])-1, Integer.parseInt(startValues[1]));
+            endCalendar.set(Integer.parseInt(endValues[2]), Integer.parseInt(endValues[0])-1, Integer.parseInt(endValues[1]));
         }
     }
 

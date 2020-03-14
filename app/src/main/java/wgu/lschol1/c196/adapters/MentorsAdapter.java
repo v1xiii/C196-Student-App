@@ -3,7 +3,6 @@ package wgu.lschol1.c196.adapters;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,8 +13,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-import wgu.lschol1.c196.R;
 import wgu.lschol1.c196.MentorDetails;
+import wgu.lschol1.c196.R;
 import wgu.lschol1.c196.database.MentorEntity;
 
 import static wgu.lschol1.c196.Mentors.NEW_MENTOR_ACTIVITY_REQUEST_CODE;
@@ -65,7 +64,7 @@ public class MentorsAdapter extends RecyclerView.Adapter<MentorsAdapter.MentorVi
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Log.e("Test","Mentor clicked : "+position);
+                    //Log.e("Test","Mentor clicked : "+position);
 
                     Intent intent = new Intent(context, MentorDetails.class);
 
